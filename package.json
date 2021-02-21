@@ -1,0 +1,26 @@
+{
+  "name": "bitcoin-sniper",
+  "version": "1.0.0",
+  "description": "Bitcoin Sniper",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanKim0213/BitcoinSniper.git"
+  },
+  "keywords": [
+    "bitcoin",
+    "tdd"
+  ],
+  "author": "Dan Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanKim0213/BitcoinSniper/issues"
+  },
+  "homepage": "https://github.com/DanKim0213/BitcoinSniper#readme"
+}
