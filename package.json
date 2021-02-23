@@ -7,7 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require babel-core/register",
+    "test-with-coverage": "nyc --reporter=text mocha --require babel-core/register",
+    "nodemon": "nodemon src/sniper/index.js",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -22,5 +25,20 @@
   "bugs": {
     "url": "https://github.com/DanKim0213/BitcoinSniper/issues"
   },
-  "homepage": "https://github.com/DanKim0213/BitcoinSniper#readme"
+  "homepage": "https://github.com/DanKim0213/BitcoinSniper#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.3.0",
+    "cypress": "^6.5.0",
+    "mocha": "^8.3.0",
+    "nodemon": "^2.0.7",
+    "nyc": "^15.1.0",
+    "puppeteer": "^7.1.0",
+    "webpack": "^5.23.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1"
+  }
 }
