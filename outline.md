@@ -1,3 +1,8 @@
+## Git flow
+- Features and Develop interact to each other
+- Finally, Master is merged with Develop 
+- https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html
+
 ## To Do 
 - 환경 설정 및 닥커파일 만들기 
 - e2e 테스트 케이스 만들기
