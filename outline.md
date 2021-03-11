@@ -3,12 +3,18 @@
 - Finally, Master is merged with Develop 
 - https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html
 
+## Brief Description 
+- **Demo** application for Trading Bitcoin
+- This app gets market info through Blockchain.com
+- As it is a kind of demo app, it saves investment info to your db and through which you assume how much you earn from the investment
+
 ## To Do 
 - 환경 설정 및 닥커파일 만들기 
 - e2e 테스트 케이스 만들기
 - Docker file is necessary??
 - Create a DB on Atlas 
 - Connect to DB
+- DB for my current investment and through which I can view my historical investment info
 
 ## Structure
 - Main(entry point), MainWindow(end point)
