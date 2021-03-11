@@ -26,6 +26,7 @@
 
 ## Features
 - ~~Display overall-bitcoin-prices~~
+- Refactor for MVC pattern 
 - Display one mybitcoin
 - Display multiple mybitcoin
 - Limit upper bound and lower bound
