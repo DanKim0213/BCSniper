@@ -1,6 +1,7 @@
 ## Git flow
 - Features and Develop interact to each other
 - Finally, Master is merged with Develop 
+- **Must upload your local feature branch to Github just in case** and then delete your local branch
 - https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html
 
 ## Brief Description 
@@ -24,7 +25,7 @@
 - Communicator: States
 
 ## Features
-- Display overall-bitcoin-prices
+- ~~Display overall-bitcoin-prices~~
 - Display one mybitcoin
 - Display multiple mybitcoin
 - Limit upper bound and lower bound
