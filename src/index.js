@@ -20,16 +20,15 @@ if (process.env.DEV_ENV === 'develop') {
 }
 
 app.get('/sniper', async (req, res) => {
-  // res.sendFile(`${__dirname}/sniper.html`);
   try {
     const result = await axios.get(
-      'https://api.coindesk.com/v1/bpi/currentprice/KRW.json'
+      'https://api.blockchain.com/v3/exchange/tickers/'
     );
-    // const data = result.data.bpi.USD.rate;
-    const data = result.data.bpi;
+    console.log(result);
+    const data = result.data.filter(el => el.symbol.endsWith('USD'));
     console.log(data);
-    const responseData = { val: data.KRW.rate };
-    res.status(200).render('layout', responseData); // data
+    res.status(200).json(data);
+    // res.status(200).render('layout', responseData); // data
   } catch (err) {
     console.log('Error occurred...', err);
   }
