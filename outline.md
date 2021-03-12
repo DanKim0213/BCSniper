@@ -26,7 +26,8 @@
 
 ## Features
 - ~~Display overall-bitcoin-prices~~
-- Refactor for MVC pattern 
+- ~~Refactor for MVC pattern~~ 
+- ~~Connect to MongoDB~~
 - Display one mybitcoin
 - Display multiple mybitcoin
 - Limit upper bound and lower bound
