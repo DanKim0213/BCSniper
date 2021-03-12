@@ -24,6 +24,11 @@
 - Views: login, overall-bitcoin-prices, mybitcoin
 - Communicator: States
 
+## Flows
+- Joining -> Lost
+- Joining -> Bidding -> Lost
+- Joining -> Bidding -> Having -> Sold
+
 ## Features
 - ~~Display overall-bitcoin-prices~~
 - ~~Refactor for MVC pattern~~ 

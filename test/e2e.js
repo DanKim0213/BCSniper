@@ -17,7 +17,7 @@ describe('End to End testing', () => {
     await browser.close();
   });
 
-  it('open brower and check "Hello World"', async () => {
+  it.skip('open brower and check "Hello World"', async () => {
     await page.goto('http://localhost:3000/sniper');
     const content = await page.evaluate(() => {
       const title = document.querySelector('#hello').innerHTML;
@@ -26,4 +26,20 @@ describe('End to End testing', () => {
     // console.log(content);
     expect(content).to.equal('Hello World!');
   });
+
+  it('Sniper joins until closed', () => {});
+
+  it('Sniper makes a higher bid but loses', () => {});
+
+  it('Sniper wins an bitcoin by bidding higher', () => {});
+
+  it('Sniper sells an bitcoin when the price meets the upper bound', () => {});
+
+  it('Sniper sells an bitcoin when the price meets the lower bound', () => {});
+
+  it('sniper bids for multiple items', () => {});
+
+  it('Sniper loses an bitcoin when the price is too high', () => {});
+
+  it('Sniper stops when error occurred', () => {});
 });
