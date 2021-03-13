@@ -9,6 +9,7 @@
   "scripts": {
     "test": "mocha ",
     "test-with-coverage": "nyc --reporter=text mocha ",
+    "unit-test": "mocha ./test/units/*.js",
     "start": "nodemon src/index.js",
     "build": "webpack"
   },
@@ -40,6 +41,7 @@
     "nodemon": "^2.0.7",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
+    "sinon": "^9.2.4",
     "webpack": "^5.23.0"
   },
   "dependencies": {

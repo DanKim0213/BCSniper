@@ -41,6 +41,11 @@ const itemSchema = new mongoose.Schema({
       },
       message: 'Min price must be set smaller than the current price({VALUE})'
     }
+  },
+  status: {
+    type: String,
+    enum: ['joining', 'bidding', 'having', 'lost', 'sold']
+    // need to set validation for status change
   }
 });
 

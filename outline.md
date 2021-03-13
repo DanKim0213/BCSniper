@@ -8,14 +8,8 @@
 - **Demo** application for Trading Bitcoin
 - This app gets market info through Blockchain.com
 - As it is a kind of demo app, it saves investment info to your db and through which you assume how much you earn from the investment
-
-## To Do 
-- 환경 설정 및 닥커파일 만들기 
-- e2e 테스트 케이스 만들기
-- Docker file is necessary??
-- Create a DB on Atlas 
-- Connect to DB
-- DB for my current investment and through which I can view my historical investment info
+- I will launch this app on my github.io 
+- This app could be used via Dockerfile. And you become a localhost if you use the dockerfile. 
 
 ## Structure
 - Main(entry point), MainWindow(end point)
