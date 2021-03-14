@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const auctionRouter = require('./routes/auctionRoute');
+const itemRouter = require('./routes/itemRoute');
 
 const app = express();
 
@@ -13,5 +14,6 @@ if (process.env.DEV_ENV === 'develop') {
 }
 
 app.use('/api/v1/bitcoins', auctionRouter);
+app.use('/api/v1/bitcoins', itemRouter);
 
 module.exports = app;

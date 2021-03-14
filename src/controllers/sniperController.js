@@ -1,21 +1,25 @@
 const Sniper = require('../models/sniperModel');
+// const itemController = require('../controllers/itemController');
 
-const sniper = new Sniper({
-  money: 500,
-  active: false,
-  items: []
-});
+let sniper;
 
-(async s => {
-  const len = (await Sniper.find()).length;
-  if (len > 0) return;
+const checkSniper = async () => {
+  sniper = await Sniper.findOne();
+  if (sniper !== null) return;
 
-  await s.save();
-})(sniper);
-
-const getAllSniperInfo = async (req, res) => {
-  const snipers = await Sniper.findOne();
-  return await snipers;
+  const newSniper = new Sniper({
+    money: 500,
+    active: false,
+    items: []
+  });
+  sniper = await newSniper.save();
 };
 
-exports.getAllSniperInfo = getAllSniperInfo;
+const getSniperInfo = async (req, res) => {
+  await checkSniper();
+  return sniper;
+};
+
+// const addItem = async (req, res) => {}
+
+exports.getSniperInfo = getSniperInfo;

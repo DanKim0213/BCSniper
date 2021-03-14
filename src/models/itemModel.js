@@ -18,6 +18,10 @@ const itemSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
+  purchasedAt: {
+    type: Number,
+    default: this.price
+  },
   duration: {
     type: Number,
     required: [true, 'How long will you hold this item?']
@@ -44,7 +48,7 @@ const itemSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['joining', 'bidding', 'having', 'lost', 'sold']
+    enum: ['joining', 'having', 'lost', 'sold']
     // need to set validation for status change
   }
 });
