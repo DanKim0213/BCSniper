@@ -3,7 +3,6 @@ const morgan = require('morgan');
 const path = require('path');
 const auctionRouter = require('./routes/auctionRoute');
 const sniperRouter = require('./routes/sniperRoute');
-// const itemRouter = require('./routes/itemRoute');
 
 const app = express();
 

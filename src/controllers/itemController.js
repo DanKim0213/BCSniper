@@ -5,14 +5,12 @@ const createItem = async symbol => {
   const input = await axios.get(
     `https://api.blockchain.com/v3/exchange/tickers/${symbol}`
   );
-  const item = new Item({
+  return await Item.create({
     name: symbol,
     price: input.data.price_24h * 1,
     maxPrice: input.data.price_24h * 1 + 100,
     status: 'joining'
   });
-  return await item.save();
-  // await Item.create(req.body);
 };
 
 const getItem = async (req, res) => {
