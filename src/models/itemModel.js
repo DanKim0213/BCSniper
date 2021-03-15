@@ -18,14 +18,11 @@ const itemSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
-  purchasedAt: {
-    type: Number,
-    default: this.price
-  },
-  duration: {
-    type: Number,
-    required: [true, 'How long will you hold this item?']
-  },
+  purchasedAt: Number,
+  // duration: {
+  //   type: Number,
+  //   required: [true, 'How long will you hold this item?']
+  // },
   maxPrice: {
     type: Number,
     required: [true, 'Please set the max price'],

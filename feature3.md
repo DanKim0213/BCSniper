@@ -1,6 +1,7 @@
 ## Feature
 - ~~Write e2e cases~~ 
 - Display one mybitcoin
+- It might be better for Auction Page Controller and Item Page Controller to be included in pug templates. 
 
 ## Process 
 - Delete auctionController. Use sniperController instead of auctionController. 
@@ -10,3 +11,7 @@
 - Sniper must be only one. 
 - You must write e2e test if you want to test the whole page. 
 - You must write unit test or integration test if you want to test logic.
+- Sniper add Item 
+  - create Item
+  - get Item
+  - Sniper push the item

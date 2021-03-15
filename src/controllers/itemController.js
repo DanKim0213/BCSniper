@@ -1,22 +1,45 @@
+const axios = require('axios');
 const Item = require('../models/itemModel');
 
-const getItem = async (req, res) => {
-  const obj = await Item.findOne({ name: req.params.symbol });
-  res.status(200).json(obj);
-  // res.send('OK');
-};
-
-// TODO: I didn't set where the val comes from
-const updateItemPrice = async (req, res, next, val) => {
-  await Item.findOneAndUpdate(
-    { name: req.params.symbol },
-    { price: val },
-    {
-      new: true,
-      runValidators: true
-    }
+const createItem = async symbol => {
+  const input = await axios.get(
+    `https://api.blockchain.com/v3/exchange/tickers/${symbol}`
   );
+  const item = new Item({
+    name: symbol,
+    price: input.data.price_24h * 1,
+    maxPrice: input.data.price_24h * 1 + 100,
+    status: 'joining'
+  });
+  return await item.save();
+  // await Item.create(req.body);
 };
 
+const getItem = async (req, res) => {
+  try {
+    const obj = await Item.findOne({ name: req.params.symbol });
+    res.status(200).json(obj);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+
+const updateItemPrice = async (req, res) => {
+  try {
+    const newData = await Item.findOneAndUpdate(
+      { name: req.params.symbol },
+      req.body,
+      {
+        new: true,
+        runValidators: true
+      }
+    );
+    res.status(201).json(newData);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+
+exports.createItem = createItem;
 exports.getItem = getItem;
 exports.updateItemPrice = updateItemPrice;
