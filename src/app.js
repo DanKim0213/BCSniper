@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const path = require('path');
 const auctionRouter = require('./routes/auctionRoute');
 const sniperRouter = require('./routes/sniperRoute');
+const itemRouter = require('./routes/itemRoute');
 
 const app = express();
 
@@ -16,5 +17,6 @@ if (process.env.DEV_ENV === 'develop') {
 app.use(express.json());
 app.use('/api/v1/bitcoins', auctionRouter);
 app.use('/api/v1/bitcoins', sniperRouter);
+app.use('/api/v1/bitcoins', itemRouter);
 
 module.exports = app;
