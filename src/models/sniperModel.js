@@ -10,13 +10,12 @@ const sniperSchema = new mongoose.Schema({
     default: false,
     select: false
   },
-  items: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Item'
-      // TODO: give the max limit to 5
-    }
-  ]
+  items: [String]
+  // TODO:
+  // {
+  //   type: mongoose.Schema.ObjectId,
+  //   ref: 'Item'
+  // }
 });
 
 const Sniper = mongoose.model('Sniper', sniperSchema);

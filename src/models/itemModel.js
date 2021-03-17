@@ -28,9 +28,10 @@ const itemSchema = new mongoose.Schema({
     required: [true, 'Please set the max price'],
     validate: {
       validator: function (val) {
+        // this only points to current doc on NEW document creation
         return val > this.price;
       },
-      message: 'Max price must be set greater than the current price({VALUE})'
+      message: `Max price ({VALUE}) must be set greater than the current price (${this.price})`
     }
   },
   minPrice: {
