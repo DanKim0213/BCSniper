@@ -36,7 +36,7 @@ const itemSchema = new mongoose.Schema({
   },
   minPrice: {
     type: Number,
-    default: this.price,
+    required: [true, 'Please set the min price'],
     validate: {
       validator: function (val) {
         return val < this.price;

@@ -11,8 +11,9 @@ const createItem = async (req, res) => {
     );
     const item = await Item.create({
       symbol: req.body.symbol,
-      price: input.data.price_24h * 1,
-      maxPrice: input.data.price_24h * 1 + 100,
+      price: input.data.price_24h,
+      maxPrice: input.data.price_24h + 100,
+      minPrice: input.data.price_24h - 50,
       status: 'joining'
     });
 

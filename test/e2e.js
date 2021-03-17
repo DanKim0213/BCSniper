@@ -27,19 +27,24 @@ describe('End to End testing', () => {
     expect(content).to.equal('Hello World!');
   });
 
-  it('Sniper joins until closed', () => {});
+  it('Sniper is idle', async () => {
+    // Test inactive
+    // 1) doesn't buy anything
+  });
 
-  it('Sniper makes a higher bid but loses', () => {});
+  it('Sniper is active until it sells all items', async () => {
+    // Test active and inactive
+    // 1) buy an Item
+    // 2) Lost the Item
+  });
 
-  it('Sniper wins an bitcoin by bidding higher', () => {});
+  it('Sniper is bidding and loses', () => {});
 
-  it('Sniper sells an bitcoin when the price meets the upper bound', () => {});
+  it('Sniper is winning but loses', () => {});
 
-  it('Sniper sells an bitcoin when the price meets the lower bound', () => {});
+  it('Sniper wins an bitcoin', () => {});
 
   it('sniper bids for multiple items', () => {});
-
-  it('Sniper loses an bitcoin when the price is too high', () => {});
 
   it('Sniper stops when error occurred', () => {});
 });
