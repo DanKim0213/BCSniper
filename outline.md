@@ -18,16 +18,26 @@
 - Views: login, overall-bitcoin-prices, mybitcoin
 - Communicator: States
 
-## Flows
+## Status Flows
+- Joining (Sniper is active once it purchased more than one item)
+- Bidding (current price <= the price at which I purchased)
+- Winning (current price > the price)
+- Lost (Eventually, sniper reaches to the min price)
+- Won (Eventually, sniper reaches to the max price)
 - Joining -> Lost
 - Joining -> Bidding -> Lost
-- Joining -> Bidding -> Having -> Sold
+- Joining -> Bidding -> Winning -> Won 
 
 ## Features
 - ~~Display overall-bitcoin-prices~~
 - ~~Refactor for MVC pattern~~ 
 - ~~Connect to MongoDB~~
-- Display one mybitcoin
+- ~~Display Sniper info~~
+- ~~Create an Item~~
+- ~~Register an Item~~
+- ~~Unregister an Item~~
+- Write e2e test (first step)
+- Make status changes effect
 - Display multiple mybitcoin
 - Limit upper bound and lower bound
 - ...
