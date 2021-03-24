@@ -4,7 +4,7 @@ const sniperCont = require('../controllers/sniperController');
 const router = express.Router();
 
 router
-  .route('/sniper')
+  .route('/:id')
   .get(sniperCont.getSniperInfo)
   .patch(sniperCont.updateSniper);
 

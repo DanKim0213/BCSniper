@@ -6,7 +6,7 @@ const router = express.Router();
 router.route('/sniper').post(itemCont.createItem);
 
 router
-  .route('/sniper/item/:symbol')
+  .route('/:id/item/:symbol')
   .get(itemCont.getItem)
   .patch(itemCont.updateItem)
   .delete(itemCont.deleteItem);

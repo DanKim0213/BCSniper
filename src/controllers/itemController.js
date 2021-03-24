@@ -2,8 +2,9 @@
 const axios = require('axios');
 const Item = require('../models/itemModel');
 const Sniper = require('../models/sniperModel');
+const AppError = require('../utils/appError');
 
-const createItem = async (req, res) => {
+const createItem = async (req, res, next) => {
   try {
     // 1) create Item
     const input = await axios.get(
@@ -31,32 +32,32 @@ const createItem = async (req, res) => {
       data: item
     });
   } catch (err) {
-    res.status(400).json({
-      status: 'failed',
-      message: err.message
-    });
+    next(err);
   }
 };
 
-const getItem = async (req, res) => {
+const getItem = async (req, res, next) => {
   try {
-    const obj = await Item.findOne({ symbol: req.params.symbol });
+    const item = await Item.findOne({ symbol: req.params.symbol });
+    if (!item) {
+      return next(new AppError(`No item found with that symbol.`, 404));
+    }
     res.status(200).json({
       status: 'success',
-      data: obj
+      data: item
     });
   } catch (err) {
-    res.status(400).json({
-      status: 'success',
-      message: err
-    });
+    next(err);
   }
 };
 
 // TODO: without queries
-const updateItem = async (req, res) => {
+const updateItem = async (req, res, next) => {
   try {
     const item = await Item.findOne({ symbol: req.params.symbol });
+    if (!item) {
+      return next(new AppError(`No item found with that symbol.`, 404));
+    }
     if (req.query.target === 'max') {
       if (req.body.maxPrice > item.price) {
         const newData = await Item.update(
@@ -78,18 +79,18 @@ const updateItem = async (req, res) => {
       throw new Error('The max price is less than or equal to the price');
     }
   } catch (err) {
-    res.status(400).json({
-      status: 'failed',
-      message: err.message
-    });
+    next(err);
   }
 };
 
-const deleteItem = async (req, res) => {
+const deleteItem = async (req, res, next) => {
   try {
     // 1) unregister Item from Sniper
     const sniper = await Sniper.findById(process.env.SNIPERID);
     const item = await Item.findOne({ symbol: req.params.symbol });
+    if (!item) {
+      return next(new AppError(`No item found with that symbol.`, 404));
+    }
     await sniper.update({ $pull: { items: item._id } });
     console.log(item._id);
 
@@ -101,10 +102,7 @@ const deleteItem = async (req, res) => {
       data: null
     });
   } catch (err) {
-    res.status(400).json({
-      status: 'failed',
-      message: err.message
-    });
+    next(err);
   }
 };
 
