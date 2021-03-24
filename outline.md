@@ -37,6 +37,7 @@
 - ~~Register an Item~~
 - ~~Unregister an Item~~
 - Write e2e test (first step)
+- ~~Handle errors globally~~
 - Make status changes effect
 - Display multiple mybitcoin
 - Limit upper bound and lower bound
