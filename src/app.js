@@ -13,15 +13,15 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(`${__dirname}`, 'views'));
 
-if (process.env.NODE_ENV === 'develop') {
+if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
 app.use(express.json());
 // app.use('/api/v1/sniper', auctionRouter);
 app.use('/api/v1/sniper', sniperRouter);
-app.use('/api/v1/sniper', itemRouter);
-app.use('/api/v1/sniper', userRouter);
+app.use('/api/v1/items', itemRouter);
+app.use('/api/v1/users', userRouter);
 
 app.all('*', (req, res, next) => {
   next(

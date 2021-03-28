@@ -1,11 +1,9 @@
 const Sniper = require('../models/sniperModel');
 const AppError = require('../utils/appError');
 
-const { SNIPERID } = process.env;
-
 const getSniperInfo = async (req, res, next) => {
   try {
-    const sniper = await Sniper.findById(SNIPERID);
+    const sniper = await Sniper.findById(req.params.id);
     if (!sniper) {
       return next(new AppError('Invalid Sniper ID', 404));
     }
