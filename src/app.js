@@ -2,8 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 // const auctionRouter = require('./routes/auctionRoute');
-const sniperRouter = require('./routes/sniperRoute');
-const itemRouter = require('./routes/itemRoute');
+const sniperRouter = require('./routes/sniperRoutes');
+const itemRouter = require('./routes/itemRoutes');
+const userRouter = require('./routes/userRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
@@ -20,6 +21,7 @@ app.use(express.json());
 // app.use('/api/v1/sniper', auctionRouter);
 app.use('/api/v1/sniper', sniperRouter);
 app.use('/api/v1/sniper', itemRouter);
+app.use('/api/v1/sniper', userRouter);
 
 app.all('*', (req, res, next) => {
   next(

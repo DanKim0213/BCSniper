@@ -1,3 +1,4 @@
+// TODO: viewsController; I just changed its name
 /* eslint-disable node/no-unsupported-features/es-syntax */
 const axios = require('axios');
 const { getSniperInfo } = require('./sniperController');
