@@ -1,7 +1,7 @@
 const Sniper = require('../models/sniperModel');
 const AppError = require('../utils/appError');
 
-const getSniperInfo = async (req, res, next) => {
+exports.getSniper = async (req, res, next) => {
   try {
     const sniper = await Sniper.findById(req.params.id);
     if (!sniper) {
@@ -17,7 +17,7 @@ const getSniperInfo = async (req, res, next) => {
 };
 
 // TODO: updateSniper is not defined yet
-const updateSniper = async (req, res, next) => {
+exports.updateSniper = async (req, res, next) => {
   try {
     // Sniper.findByIdAndUpdate()
     res.status(500).json({
@@ -28,6 +28,3 @@ const updateSniper = async (req, res, next) => {
     next(err);
   }
 };
-
-exports.getSniperInfo = getSniperInfo;
-exports.updateSniper = updateSniper;

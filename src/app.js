@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-// const auctionRouter = require('./routes/auctionRoute');
+const viewRouter = require('./routes/viewRoutes');
 const sniperRouter = require('./routes/sniperRoutes');
 const itemRouter = require('./routes/itemRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -18,7 +18,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(express.json());
-// app.use('/api/v1/sniper', auctionRouter);
+
+app.use('/', viewRouter);
 app.use('/api/v1/sniper', sniperRouter);
 app.use('/api/v1/items', itemRouter);
 app.use('/api/v1/users', userRouter);

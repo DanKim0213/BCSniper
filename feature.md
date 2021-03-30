@@ -3,4 +3,10 @@
 - Make status changes effect
 
 ## Process
-- User -> Sniper (Child Referencing) and Sniper -> Item (Parent Referencing)
+- ~~Set View routes~~
+- ~~User -> Sniper (Child Referencing) and Sniper -> Item (Parent Referencing)~~
+- Make API concrete 
+  - CRUD
+  - getItemStats
+  - getItemsWithin
+  - Top5

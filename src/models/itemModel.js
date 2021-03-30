@@ -14,21 +14,24 @@ const itemSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'An item must have price']
   },
+  // TODO: refesh per min
   priceChangedAt: {
     type: Date,
     default: Date.now()
   },
-  purchasedAt: Number,
-  // duration: {
-  //   type: Number,
-  //   required: [true, 'How long will you hold this item?']
-  // },
+  purchasedAt: {
+    type: Number,
+    default: this.price
+  },
+  duration: {
+    type: Number,
+    required: [true, 'How long will you hold this item?']
+  },
   maxPrice: {
     type: Number,
     required: [true, 'Please set the max price'],
     validate: {
       validator: function (val) {
-        // this only points to current doc on NEW document creation
         return val > this.price;
       },
       message: `Max price ({VALUE}) must be set greater than the current price (${this.price})`
@@ -41,13 +44,17 @@ const itemSchema = new mongoose.Schema({
       validator: function (val) {
         return val < this.price;
       },
-      message: 'Min price must be set smaller than the current price({VALUE})'
+      message: `Min price ({VALUE}) must be set smaller than the current price (${this.price})`
     }
   },
   status: {
     type: String,
-    enum: ['joining', 'having', 'lost', 'sold']
-    // need to set validation for status change
+    enum: ['joining', 'losing', 'winning', 'lost', 'won']
+  },
+  sniper: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Sniper',
+    required: [true, 'Item must belong to a sniper.']
   }
 });
 

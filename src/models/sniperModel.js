@@ -1,21 +1,28 @@
 const mongoose = require('mongoose');
 
-const sniperSchema = new mongoose.Schema({
-  money: {
-    type: Number,
-    default: 0
+const sniperSchema = new mongoose.Schema(
+  {
+    money: {
+      type: Number,
+      default: 0
+    },
+    active: {
+      type: Boolean,
+      default: false,
+      select: false
+    }
   },
-  active: {
-    type: Boolean,
-    default: false,
-    select: false
-  },
-  items: [String]
-  // TODO:
-  // {
-  //   type: mongoose.Schema.ObjectId,
-  //   ref: 'Item'
-  // }
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+  }
+);
+
+// For Parent Referencing, Virtual populate which is not saved on DB
+sniperSchema.virtual('items', {
+  ref: 'Item',
+  foreignField: 'sniper',
+  localField: '_id'
 });
 
 const Sniper = mongoose.model('Sniper', sniperSchema);

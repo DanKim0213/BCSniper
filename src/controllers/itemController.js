@@ -1,42 +1,20 @@
-/* eslint-disable no-underscore-dangle */
-const axios = require('axios');
 const Item = require('../models/itemModel');
-const Sniper = require('../models/sniperModel');
 const AppError = require('../utils/appError');
 
-const createItem = async (req, res, next) => {
+exports.createItem = async (req, res, next) => {
   try {
-    // 1) create Item
-    const input = await axios.get(
-      `https://api.blockchain.com/v3/exchange/tickers/${req.body.symbol}`
-    );
-    const item = await Item.create({
-      symbol: req.body.symbol,
-      price: input.data.price_24h * 1,
-      maxPrice: input.data.price_24h * 1 + 100,
-      status: 'joining'
-    });
-
-    // 2) register Item to Sniper
-    let sniper = await Sniper.findById(process.env.SNIPERID);
-    const itemId = item._id;
-    console.log('sniper item array is ', sniper.items, 'item id is ', itemId);
-    sniper = await Sniper.findByIdAndUpdate(
-      process.env.SNIPERID,
-      { $push: { items: itemId } },
-      { new: true }
-    );
+    const doc = await Item.create(req.body);
 
     res.status(201).json({
       status: 'success',
-      data: item
+      data: doc
     });
   } catch (err) {
     next(err);
   }
 };
 
-const getItem = async (req, res, next) => {
+exports.getItem = async (req, res, next) => {
   try {
     const item = await Item.findOne({ symbol: req.params.symbol });
     if (!item) {
@@ -52,7 +30,7 @@ const getItem = async (req, res, next) => {
 };
 
 // TODO: without queries
-const updateItem = async (req, res, next) => {
+exports.updateItem = async (req, res, next) => {
   try {
     const item = await Item.findOne({ symbol: req.params.symbol });
     if (!item) {
@@ -83,18 +61,13 @@ const updateItem = async (req, res, next) => {
   }
 };
 
-const deleteItem = async (req, res, next) => {
+exports.deleteItem = async (req, res, next) => {
   try {
-    // 1) unregister Item from Sniper
-    const sniper = await Sniper.findById(process.env.SNIPERID);
     const item = await Item.findOne({ symbol: req.params.symbol });
     if (!item) {
       return next(new AppError(`No item found with that symbol.`, 404));
     }
-    await sniper.update({ $pull: { items: item._id } });
-    console.log(item._id);
 
-    // 2) delete Item
     await Item.deleteOne({ _id: item._id });
 
     res.status(204).json({
@@ -105,8 +78,3 @@ const deleteItem = async (req, res, next) => {
     next(err);
   }
 };
-
-exports.createItem = createItem;
-exports.getItem = getItem;
-exports.updateItem = updateItem;
-exports.deleteItem = deleteItem;

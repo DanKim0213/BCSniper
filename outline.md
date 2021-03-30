@@ -41,6 +41,7 @@
 - ~~Authenticate and Authorize~~ 
 - Model data 
 - Make status changes effect
+- Set interval request using Event Source 
 - Display multiple mybitcoin
 - Limit upper bound and lower bound
 - ...

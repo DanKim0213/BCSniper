@@ -5,7 +5,7 @@ const router = express.Router();
 
 router
   .route('/:id')
-  .get(sniperController.getSniperInfo)
+  .get(sniperController.getSniper)
   .patch(sniperController.updateSniper);
 
 module.exports = router;
