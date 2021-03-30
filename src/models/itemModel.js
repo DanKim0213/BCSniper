@@ -24,7 +24,7 @@ const itemSchema = new mongoose.Schema({
     default: this.price
   },
   duration: {
-    type: Number,
+    type: Date,
     required: [true, 'How long will you hold this item?']
   },
   maxPrice: {

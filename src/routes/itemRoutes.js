@@ -6,7 +6,7 @@ const router = express.Router();
 router.route('/').post(itemController.createItem);
 
 router
-  .route('/:symbol')
+  .route('/:id')
   .get(itemController.getItem)
   .patch(itemController.updateItem)
   .delete(itemController.deleteItem);

@@ -6,7 +6,7 @@
 - ~~Set View routes~~
 - ~~User -> Sniper (Child Referencing) and Sniper -> Item (Parent Referencing)~~
 - Make API concrete 
-  - CRUD
-  - getItemStats
+  - ~~CRUD~~
   - getItemsWithin
   - Top5
+  - getItemStats
