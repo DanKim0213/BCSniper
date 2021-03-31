@@ -34,7 +34,7 @@ const itemSchema = new mongoose.Schema({
       validator: function (val) {
         return val > this.price;
       },
-      message: `Max price ({VALUE}) must be set greater than the current price (${this.price})`
+      message: `Max price ({VALUE}) must be set greater than the current price`
     }
   },
   minPrice: {
@@ -44,7 +44,7 @@ const itemSchema = new mongoose.Schema({
       validator: function (val) {
         return val < this.price;
       },
-      message: `Min price ({VALUE}) must be set smaller than the current price (${this.price})`
+      message: `Min price ({VALUE}) must be set smaller than the current price`
     }
   },
   status: {

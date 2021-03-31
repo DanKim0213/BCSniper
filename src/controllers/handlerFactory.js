@@ -78,16 +78,15 @@ exports.getOne = (Model, popOptions) => async (req, res, next) => {
 
 exports.getAll = Model => async (req, res, next) => {
   try {
-    // To allow for nested GET reviews on tour (hack)
+    // To allow for nested GET items on sniper (hack)
     let filter = {};
-    if (req.params.tourId) filter = { tour: req.params.tourId };
+    if (req.params.sniperId) filter = { sniper: req.params.sniperId };
 
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()
-      .limitFields()
-      .paginate();
-    // const doc = await features.query.explain();
+      .limitFields();
+
     const doc = await features.query;
 
     // SEND RESPONSE
