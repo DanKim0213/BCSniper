@@ -13,7 +13,10 @@
   - getItemStats
 
 ## Process2
-- getItemsWithin
+- ~~getItemsWithin~~
   - ~~change duration into Date~~
-- Set sniperId via AuthController
+- ~~Set sniperId via AuthController~~
+- ~~Restrict to User~~
 - time.getTime() 
+- Sniper is used as an Announcer 
+- How to access User's Sniper? req.user.sniper

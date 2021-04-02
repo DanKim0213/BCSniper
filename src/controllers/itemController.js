@@ -9,7 +9,6 @@ exports.getItem = factory.getOne(Item);
 exports.updateItem = factory.updateOne(Item);
 exports.deleteItem = factory.deleteOne(Item);
 
-// TODO: authorize required
 exports.createItem = async (req, res, next) => {
   try {
     const input = { ...req.body };
@@ -33,6 +32,7 @@ exports.aliasWithinAWeek = async (req, res, next) => {
     const date = new Date();
     date.setDate(date.getDate() + 7);
     const filter = Item.find({
+      sniper: req.user.sniper,
       duration: { $lte: date }
     });
 
