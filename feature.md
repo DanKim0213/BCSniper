@@ -8,9 +8,7 @@
 - Make API concrete 
   - ~~CRUD~~
   - ~~getItemsWithin~~
-  - Aggregate Item price e.g. show how many an item's price is increased via percentage
-  - Top5 sorted by price and increase percentage in a descending order
-  - getItemStats
+  - registerItems
 
 ## Process2
 - ~~getItemsWithin~~

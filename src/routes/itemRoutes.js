@@ -9,13 +9,14 @@ router.use(authController.protect);
 router
   .route('/')
   .get(authController.restrictTo('admin'), itemController.getAllItems)
-  .post(itemController.createItem);
+  .post(authController.restrictTo('admin', 'user'), itemController.createItem);
 
 router.route('/within-a-week').get(itemController.aliasWithinAWeek);
+// TODO: route('/within').get();
 
 router
   .route('/:id')
-  .all(authController.restrictTo('admin', 'user'))
+  .all(authController.restrictTo('admin', 'user'), itemController.matchSniper)
   .get(itemController.getItem)
   .patch(itemController.updateItem)
   .delete(itemController.deleteItem);

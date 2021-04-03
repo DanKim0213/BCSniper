@@ -11,16 +11,30 @@ router.use(authController.protect);
 
 router
   .route('/')
-  .get(sniperController.getMe)
-  .post(sniperController.createSniper)
-  .patch(sniperController.updateMe);
-
-// we forbid directly approaching to sniper by Id
-router.use(authController.restrictTo('admin'));
+  .all(authController.restrictTo('admin'))
+  .get(sniperController.getAllSniper)
+  .post(sniperController.createSniper);
 
 router
   .route('/:id')
+  .all(authController.restrictTo('admin'))
   .get(sniperController.getSniper)
-  .patch(sniperController.updateSniper);
+  .patch(sniperController.updateSniper)
+  .delete(sniperController.deleteSniper);
+
+router
+  .route('/me')
+  .post(
+    authController.restrictTo('admin', 'user'),
+    sniperController.matchUser,
+    sniperController.createSniper
+  );
+
+router
+  .route('/me/:id')
+  .all(authController.restrictTo('admin', 'user'), sniperController.matchUser)
+  .get(sniperController.getSniper)
+  .patch(sniperController.updateSniper)
+  .delete(sniperController.removeSniperRef);
 
 module.exports = router;

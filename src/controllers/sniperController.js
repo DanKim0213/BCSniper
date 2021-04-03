@@ -1,4 +1,5 @@
 const Sniper = require('../models/sniperModel');
+const User = require('../models/userModel');
 const factory = require('./handlerFactory');
 const AppError = require('../utils/appError');
 
@@ -8,31 +9,30 @@ exports.createSniper = factory.createOne(Sniper);
 exports.updateSniper = factory.updateOne(Sniper);
 exports.deleteSniper = factory.deleteOne(Sniper);
 
-exports.getMe = async (req, res, next) => {
-  try {
-    const sniper = await Sniper.findById(req.user.sniper);
-    if (!sniper) next(new AppError('No sniper found with that ID', 400));
+// must be loosley coupled
+// TODO: make createOne consistent: Sniper depends on User
+// exports.createSniper = async (req, res, next) => {};
 
-    res.status(200).json({
-      status: 'success',
-      data: sniper
-    });
+// The route checks if Sniper belongs to User
+exports.matchUser = (req, res, next) => {
+  try {
+    if (!req.user.sniper === req.params.id) {
+      return next(
+        new AppError('You do not have permission to perform this action', 403)
+      );
+    }
+    next();
   } catch (err) {
     next(err);
   }
 };
 
-exports.updateMe = async (req, res, next) => {
+exports.removeSniperRef = async (req, res, next) => {
   try {
-    const sniper = await Sniper.findByIdAndUpdate(req.user.sniper, req.body, {
-      new: true,
-      runValidators: true
-    });
-    if (!sniper) next(new AppError('No sniper found with that ID', 400));
-
-    res.status(200).json({
+    await User.findByIdAndDelete(req.params.id);
+    req.status(204).json({
       status: 'success',
-      data: sniper
+      data: null
     });
   } catch (err) {
     next(err);

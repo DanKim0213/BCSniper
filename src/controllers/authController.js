@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const crypto = require('crypto');
 const User = require('../models/userModel');
-const Sniper = require('../models/sniperModel');
 const AppError = require('../utils/appError');
 const sendEmail = require('../utils/email');
 
@@ -41,8 +40,7 @@ exports.signup = async (req, res, next) => {
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
-      passwordConfirm: req.body.passwordConfirm,
-      sniper: req.body.sniper
+      passwordConfirm: req.body.passwordConfirm
     });
 
     createSendToken(newUser, 201, res);
@@ -122,21 +120,11 @@ exports.protect = async (req, res, next) => {
   }
 };
 
-exports.restrictTo = (...roles) => async (req, res, next) => {
+exports.restrictTo = (...roles) => (req, res, next) => {
   if (!roles.includes(req.user.role)) {
     return next(
       new AppError('You do not have permission to perform this action', 403)
     );
-  }
-
-  // if it includes user, restrict to items by valid sniper
-  if (roles.includes('user')) {
-    const sniper = await Sniper.findById(req.user.sniper);
-    if (!sniper || !sniper.items.includes(req.params.id)) {
-      return next(
-        new AppError('You do not have permission to perform this action', 403)
-      );
-    }
   }
 
   next();
