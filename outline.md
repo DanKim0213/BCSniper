@@ -39,8 +39,9 @@
 - Write e2e test (first step)
 - ~~Handle errors globally~~
 - ~~Authenticate and Authorize~~ 
-- Model data 
-- Make status changes effect
+- ~~Model data~~ 
+- Render views 
+- Change Status automatically 
 - Sniper is used as an Announcer 
 - Set interval request using Event Source 
 - Display multiple mybitcoin
