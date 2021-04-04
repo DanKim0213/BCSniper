@@ -9,16 +9,19 @@ exports.getItem = factory.getOne(Item);
 exports.updateItem = factory.updateOne(Item);
 exports.deleteItem = factory.deleteOne(Item);
 
-// must be loosley coupled
-// TODO: make createOne consistent: Item depends on Sniper
 exports.createItem = async (req, res, next) => {
   try {
     const input = { ...req.body, sniper: req.user.sniper };
-    const date = new Date();
-    date.setDate(date.getDate() + req.body.duration);
-    input.duration = date;
-
-    const data = await Item.create(input);
+    input.duration = Date.now() + req.body.duration * 24 * 60 * 60 * 1000;
+    const data = await Item.create({
+      symbol: input.symbol,
+      price: input.price,
+      duration: input.duration,
+      maxPrice: input.maxPrice,
+      minPrice: input.minPrice,
+      status: input.status,
+      sniper: input.sniper
+    });
 
     res.status(201).json({
       status: 'success',
@@ -55,9 +58,10 @@ exports.aliasWithinAWeek = async (req, res, next) => {
 exports.matchSniper = async (req, res, next) => {
   try {
     const item = await Item.findById(req.params.id);
-    if (!item.sniper === req.user.sniper) {
+    // req.user.sniper._id is Object while id is String
+    if (item.sniper.toString() !== req.user.sniper.id) {
       return next(
-        new AppError('You do not have permission to perform this action', 403)
+        new AppError('You are not allowed to access to the item', 403)
       );
     }
     next();

@@ -9,32 +9,24 @@ router.use('/items', itemRouter);
 
 router.use(authController.protect);
 
+// Restrict from ('admin', 'user') to ('admin')
+router.use(authController.restrictTo('admin', 'user'));
+router.route('/me').post(sniperController.registerSniper);
+router
+  .route('/me/:id')
+  .get(sniperController.matchUser, sniperController.getSniper)
+  .patch(sniperController.matchUser, sniperController.updateSniper)
+  .delete(sniperController.matchUser, sniperController.unregisterSniper);
+
+router.use(authController.restrictTo('admin'));
 router
   .route('/')
-  .all(authController.restrictTo('admin'))
   .get(sniperController.getAllSniper)
   .post(sniperController.createSniper);
-
 router
   .route('/:id')
-  .all(authController.restrictTo('admin'))
   .get(sniperController.getSniper)
   .patch(sniperController.updateSniper)
   .delete(sniperController.deleteSniper);
-
-router
-  .route('/me')
-  .post(
-    authController.restrictTo('admin', 'user'),
-    sniperController.matchUser,
-    sniperController.createSniper
-  );
-
-router
-  .route('/me/:id')
-  .all(authController.restrictTo('admin', 'user'), sniperController.matchUser)
-  .get(sniperController.getSniper)
-  .patch(sniperController.updateSniper)
-  .delete(sniperController.removeSniperRef);
 
 module.exports = router;

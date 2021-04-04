@@ -9,16 +9,13 @@ exports.createSniper = factory.createOne(Sniper);
 exports.updateSniper = factory.updateOne(Sniper);
 exports.deleteSniper = factory.deleteOne(Sniper);
 
-// must be loosley coupled
-// TODO: make createOne consistent: Sniper depends on User
-// exports.createSniper = async (req, res, next) => {};
-
 // The route checks if Sniper belongs to User
 exports.matchUser = (req, res, next) => {
   try {
-    if (!req.user.sniper === req.params.id) {
+    // req.user.sniper._id is Object while id is String
+    if (!req.user.sniper || req.user.sniper.id !== req.params.id) {
       return next(
-        new AppError('You do not have permission to perform this action', 403)
+        new AppError('You are not allowed to access to the Sniper', 403)
       );
     }
     next();
@@ -27,10 +24,34 @@ exports.matchUser = (req, res, next) => {
   }
 };
 
-exports.removeSniperRef = async (req, res, next) => {
+exports.registerSniper = async (req, res, next) => {
   try {
-    await User.findByIdAndDelete(req.params.id);
-    req.status(204).json({
+    if (req.user.sniper) {
+      return next(new AppError('You already have a Sniper.', 403));
+    }
+    const sniper = await Sniper.create({ money: req.body.money });
+    const currentUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { sniper: sniper._id },
+      { new: true, runValidators: true }
+    );
+    req.user = currentUser;
+
+    res.status(201).json({
+      status: 'success',
+      data: sniper
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.unregisterSniper = async (req, res, next) => {
+  try {
+    await User.findByIdAndUpdate(req.user._id, { sniper: undefined });
+    req.user.sniper = undefined;
+
+    res.status(204).json({
       status: 'success',
       data: null
     });
