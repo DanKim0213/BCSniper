@@ -1,14 +1,24 @@
 const express = require('express');
-const auctionCont = require('../controllers/viewsController');
+const viewsController = require('../controllers/viewsController');
+const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-router.route('/').get(auctionCont.getAllBitcoinData);
+router.get('/', authController.isLoggedIn, viewsController.getOverview);
+router
+  .route('/sniper')
+  .get(authController.isLoggedIn, viewsController.getSniper);
+router
+  .route('/sniper/:symbol')
+  .get(authController.isLoggedIn, viewsController.getItem);
+// router.route('/sniper/unreg').get();
+router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
+router.get('/me', authController.protect, viewsController.getAccount);
 
-router.route('/sniper').get().patch();
-
-router.route('/sniper/:id').get().patch().delete();
-
-router.route('/sniper/unreg').get().post();
+router.post(
+  '/submit-user-data',
+  authController.protect,
+  viewsController.updateUserData
+);
 
 module.exports = router;

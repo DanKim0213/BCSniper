@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const itemSchema = new mongoose.Schema({
   symbol: {
     type: String,
-    required: [true, 'No item name'],
-    unique: true
+    required: [true, 'No item name']
   },
   createdAt: {
     type: Date,
