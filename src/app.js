@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const path = require('path');
 const viewRouter = require('./routes/viewRoutes');
@@ -13,11 +14,17 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(`${__dirname}`, 'views'));
 
+// Serving static files
+app.use(express.static(path.join(__dirname, 'public')));
+
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+// Parsers
 app.use(express.json());
+app.use(express.urlencoded({ extends: true }));
+app.use(cookieParser());
 
 app.use('/', viewRouter);
 app.use('/api/v1/sniper', sniperRouter);
