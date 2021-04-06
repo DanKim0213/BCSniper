@@ -4,7 +4,11 @@ const Item = require('../models/itemModel');
 const AppError = require('../utils/appError');
 
 // TODO: overview.js in public
-exports.getOverview = async (req, res, next) => {
+exports.getOverview = (req, res, next) => {
+  res.status(200).render('overview', {
+    title: 'BCSniper Overview',
+    message: 'Bitcoin Sniper Overview'
+  });
   // try {
   //   const bitcoins = await axios({
   //     method: 'GET',
@@ -19,6 +23,7 @@ exports.getOverview = async (req, res, next) => {
   // }
 };
 
+// TODO: user in req.user is undefined
 exports.getSniper = async (req, res, next) => {
   try {
     // 1) Get the data, for the requested item

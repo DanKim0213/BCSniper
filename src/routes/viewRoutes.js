@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', authController.isLoggedIn, viewsController.getOverview);
 router
-  .route('/sniper')
+  .route('/sniper') // TODO: user in req.user is undefined
   .get(authController.isLoggedIn, viewsController.getSniper);
 router
   .route('/sniper/:symbol')
