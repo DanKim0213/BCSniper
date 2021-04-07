@@ -7,10 +7,10 @@ const router = express.Router();
 router.get('/', authController.isLoggedIn, viewsController.getOverview);
 router
   .route('/sniper') // TODO: user in req.user is undefined
-  .get(authController.isLoggedIn, viewsController.getSniper);
+  .get(authController.protect, viewsController.getSniper);
 router
   .route('/sniper/:symbol')
-  .get(authController.isLoggedIn, viewsController.getItem);
+  .get(authController.protect, viewsController.getItem);
 // router.route('/sniper/unreg').get();
 router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
 router.get('/me', authController.protect, viewsController.getAccount);

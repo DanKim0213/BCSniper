@@ -27,9 +27,9 @@ exports.getOverview = (req, res, next) => {
 exports.getSniper = async (req, res, next) => {
   try {
     // 1) Get the data, for the requested item
-    const sniper = await Sniper.findById(req.user._id).populate({
+    const sniper = await Sniper.findById(req.user.sniper).populate({
       path: 'items',
-      fields: 'symbol price maxPrice'
+      fields: 'symbol price minPrice maxPrice duration status'
     });
 
     if (!sniper) {
@@ -40,7 +40,7 @@ exports.getSniper = async (req, res, next) => {
     // 3) Render template using data from 1)
     res.status(200).render('sniper', {
       title: `Sniper with $${sniper.money}`,
-      sniper
+      items: sniper.items
     });
   } catch (err) {
     next(err);

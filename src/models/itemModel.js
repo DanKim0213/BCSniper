@@ -48,13 +48,14 @@ const itemSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['joining', 'losing', 'winning', 'lost', 'won']
+    enum: ['JOINING', 'LOSING', 'WINNING', 'LOST', 'WON']
   },
   sniper: {
     type: mongoose.Schema.ObjectId,
     ref: 'Sniper',
     required: [true, 'Item must belong to a sniper.']
   }
+  // TODO: incPercent
 });
 
 const Item = mongoose.model('Item', itemSchema);
