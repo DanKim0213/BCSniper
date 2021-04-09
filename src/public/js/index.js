@@ -1,12 +1,14 @@
 import '@babel/polyfill';
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
+import { watchData } from './sniper';
 
 // DOM ELEMENTS
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
+const card = document.querySelector('.card');
 
 if (loginForm)
   loginForm.addEventListener('submit', e => {
@@ -44,3 +46,8 @@ if (userPasswordForm)
     document.getElementById('password').value = '';
     document.getElementById('password-confirm').value = '';
   });
+
+if (card) {
+  // TODO: 
+  watchData('604e167cb44ba56313752de6');
+}

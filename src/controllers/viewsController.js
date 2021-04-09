@@ -23,7 +23,6 @@ exports.getOverview = (req, res, next) => {
   // }
 };
 
-// TODO: user in req.user is undefined
 exports.getSniper = async (req, res, next) => {
   try {
     // 1) Get the data, for the requested item

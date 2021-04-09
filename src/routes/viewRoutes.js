@@ -5,9 +5,7 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router.get('/', authController.isLoggedIn, viewsController.getOverview);
-router
-  .route('/sniper') // TODO: user in req.user is undefined
-  .get(authController.protect, viewsController.getSniper);
+router.route('/sniper').get(authController.protect, viewsController.getSniper);
 router
   .route('/sniper/:symbol')
   .get(authController.protect, viewsController.getItem);

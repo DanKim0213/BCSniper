@@ -12,7 +12,7 @@
     "unit-test": "mocha ./test/units/*.js",
     "start": "nodemon src/server.js",
     "start:prod": "NODE_ENV=production nodemon src/server.js",
-    "watch:js": "parcel watch ./src/public/js/index.js --out-dir ./src/public/js --out-file bundle.js",
+    "watch:js": "parcel watch ./src/public/js/index.js --out-dir ./src/public/js --public-url /js --out-file bundle.js",
     "build:js": "parcel watch ./src/public/js/index.js --out-dir ./src/public/js --out-file bundle.js"
   },
   "repository": {

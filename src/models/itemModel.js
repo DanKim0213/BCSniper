@@ -13,12 +13,12 @@ const itemSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'An item must have price']
   },
-  // TODO: refesh per min
   priceChangedAt: {
     type: Date,
     default: Date.now()
   },
   purchasedAt: {
+    // TODO: this doesn't work
     type: Number,
     default: this.price
   },
