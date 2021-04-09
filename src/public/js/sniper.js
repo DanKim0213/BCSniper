@@ -70,8 +70,7 @@ export const watchData = async (sniperId) => {
     for (let el of preitems) {
       item = postitems.find(i => i.symbol === el.symbol);
       if (item.price_24h !== el.price) {
-        // TODO: item.price_24h > el.purchasedAt
-        const status = item.price_24h > el.price? 'WINNING': 'LOSING';
+        const status = item.price_24h > el.purchasedAt? 'WINNING': 'LOSING';
         updateData(el._id, item.price_24h, status);
       }
     }
