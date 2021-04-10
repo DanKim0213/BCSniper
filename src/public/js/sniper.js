@@ -1,27 +1,11 @@
 import axios from 'axios';
 import { showAlert } from './alerts';
 
-const fetchData = async () => {
-  try {
-
-  } catch (err) {
-    showAlert('error while Fetching data!!!', err.response.data.message);
-  }
-};
-
-const compareData = (preData, postData) => {
-  try {
-
-  } catch (err) {
-    showAlert('error', err.response.data.message);
-  }
-}
-
-const updateData = async (itemId, price, status) => {
+const updateData = async (id, price, status, symbol) => {
   try {
     const res = await axios({
       method: 'PATCH',
-      url: `/api/v1/sniper/items/${itemId}`,
+      url: `/api/v1/sniper/items/${id}`,
       data: {
         price,
         status,
@@ -29,11 +13,9 @@ const updateData = async (itemId, price, status) => {
       }
     });
 
-    if (res.data.status === 'success') {
-      showAlert('success', 'updated in successfully!');
-      window.setTimeout(() => {
-        location.reload(true);
-      }, 1500);
+    if (res.data.status !== 'success') {
+      showAlert(`Failed with ${symbol}`, 'Something went wrong while updating!');
+      return { price, status }
     }
   } catch (err) {
     showAlert('error', err.response.data.message);
@@ -49,33 +31,21 @@ const sellItem = async () => {
   }
 };
 
-export const watchData = async (sniperId) => {
+export const watchItem = async (item) => {
   try {
     // 1) Fetch Data
-    const preData = await axios({
+    const newItem = await axios({
       method: 'GET',
-      url: `/api/v1/sniper/me/${sniperId}`,
-    })
-    const postData = await axios({
-      method: 'GET',
-      url: 'https://api.blockchain.com/v3/exchange/tickers/'
-    }) 
-
-    // 2) Compare Data and Update
-    const preitems = [...preData.data.data.data.items];
-    const postitems = [...postData.data];
-    let item;
-    // I could optimize performance if I know the way blockchain.com sorts bitcoins
-    // TODO: sorting both of them and then matching could increase performance:) 
-    for (let el of preitems) {
-      item = postitems.find(i => i.symbol === el.symbol);
-      if (item.price_24h !== el.price) {
-        const status = item.price_24h > el.purchasedAt? 'WINNING': 'LOSING';
-        updateData(el._id, item.price_24h, status);
-      }
+      url: `https://api.blockchain.com/v3/exchange/tickers/${item.symbol}`
+    });
+    
+    // 2) Compare and Update
+    if (item.price !== newItem.data.price_24h) {
+      const status = item.purchasedAt*1 < newItem.data.price_24h*1 ? 'WINNING' : 'LOSING';
+      await updateData(item.id, newItem.data.price_24h, status, item.symbol);
     }
+
   } catch (err) {
-    console.log(err);
     showAlert('error', err.message);
   }
 }

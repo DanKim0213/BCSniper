@@ -1,14 +1,16 @@
 import '@babel/polyfill';
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
-import { watchData } from './sniper';
+import { watchItem } from './sniper';
+// import { createItem, updateState } from './candidate';
 
 // DOM ELEMENTS
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
-const card = document.querySelector('.card');
+const cardContainer = document.querySelector('.card-container');
+// const unregitem = document.querySelector('#unregitem');
 
 if (loginForm)
   loginForm.addEventListener('submit', e => {
@@ -36,6 +38,7 @@ if (userPasswordForm)
     const passwordCurrent = document.getElementById('password-current').value;
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('password-confirm').value;
+    // TODO: await?!
     await updateSettings(
       { passwordCurrent, password, passwordConfirm },
       'password'
@@ -47,7 +50,33 @@ if (userPasswordForm)
     document.getElementById('password-confirm').value = '';
   });
 
-if (card) {
-  // TODO: 
-  watchData('604e167cb44ba56313752de6');
+if (cardContainer) {
+  const idArr = document.querySelectorAll('.itemId');
+  const symbolArr = document.querySelectorAll('.itemSymbol');
+  const priceArr = document.querySelectorAll('.itemPrice');
+  const purchasedAtArr = document.querySelectorAll('.itemPurchasedAt');
+  const statusArr = document.querySelectorAll('.itemStatus');
+
+  let id;
+  let symbol;
+  let price;
+  let purchasedAt;
+  let status; 
+
+  console.log(Date.now());
+  for (let i = 0; i < idArr.length; i++) {
+    id = idArr[i].innerHTML;
+    symbol = symbolArr[i].innerHTML;
+    price = priceArr[i].innerHTML.split('$')[1];
+    purchasedAt = purchasedAtArr[i].innerHTML.split('$')[1];
+    status = statusArr[i].innerHTML;
+    const { nprice, nstatus } = watchItem({id, symbol, price, purchasedAt});
+
+    price = nprice;
+    status = nstatus;
+  }
 }
+
+// if (unregitem) {
+//   const state = document.querySelector('#state');
+// } 

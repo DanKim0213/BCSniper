@@ -7,9 +7,12 @@ const router = express.Router();
 router.get('/', authController.isLoggedIn, viewsController.getOverview);
 router.route('/sniper').get(authController.protect, viewsController.getSniper);
 router
-  .route('/sniper/:symbol')
+  .route('/sniper/items/:symbol')
   .get(authController.protect, viewsController.getItem);
-// router.route('/sniper/unreg').get();
+router
+  .route('/sniper/unreg')
+  .get(authController.protect, viewsController.getCandidate);
+router.get('/create', authController.protect, viewsController.getCreateForm);
 router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
 router.get('/me', authController.protect, viewsController.getAccount);
 

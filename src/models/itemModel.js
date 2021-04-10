@@ -47,7 +47,7 @@ const itemSchema = new mongoose.Schema(
     },
     minPrice: {
       type: Number,
-      default: this.price,
+      required: [true, 'Please set the min price'],
       validate: {
         validator: function (val) {
           return val < this.price;
@@ -57,7 +57,8 @@ const itemSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['JOINING', 'LOSING', 'WINNING', 'LOST', 'WON']
+      enum: ['JOINING', 'LOSING', 'WINNING', 'LOST', 'WON'],
+      default: 'JOINING'
     },
     sniper: {
       type: mongoose.Schema.ObjectId,
