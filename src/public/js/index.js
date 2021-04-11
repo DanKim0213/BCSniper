@@ -2,7 +2,7 @@ import '@babel/polyfill';
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { watchItem } from './sniper';
-// import { createItem, updateState } from './candidate';
+import { getUnregItems } from './candidate';
 
 // DOM ELEMENTS
 const loginForm = document.querySelector('.form--login');
@@ -10,7 +10,7 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const cardContainer = document.querySelector('.card-container');
-// const unregitem = document.querySelector('#unregitem');
+const itemContainer = document.querySelector('.item-container');
 
 if (loginForm)
   loginForm.addEventListener('submit', e => {
@@ -38,7 +38,9 @@ if (userPasswordForm)
     const passwordCurrent = document.getElementById('password-current').value;
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('password-confirm').value;
-    // TODO: await?!
+    // without await vs with await: async fn is Promise 
+    // and the reason why Promise is used is that we need the expected order.
+    // For example, to reassign like below or assign values from the promise.
     await updateSettings(
       { passwordCurrent, password, passwordConfirm },
       'password'
@@ -77,6 +79,22 @@ if (cardContainer) {
   }
 }
 
-// if (unregitem) {
-//   const state = document.querySelector('#state');
-// } 
+if (itemContainer) {
+  // 1) figure out unregItems
+  const regItemArr = document.querySelectorAll('.regItem');
+  let regItems = [];
+  for (let el of regItemArr) {
+    regItems.push(el.innerHTML);
+  }
+  getUnregItems(regItems).then(candidates => {
+    for (let candidate of candidates) {
+      // 2) create new element  
+      const tag = document.createElement('p');
+      const txt = document.createTextNode(candidate.symbol);
+      tag.appendChild(txt);
+    
+      // 3) append the element
+      itemContainer.appendChild(tag);
+    }
+  });
+} 

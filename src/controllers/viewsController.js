@@ -1,5 +1,3 @@
-/* eslint-disable no-plusplus */
-const axios = require('axios');
 const Sniper = require('../models/sniperModel');
 const User = require('../models/userModel');
 const Item = require('../models/itemModel');
@@ -62,53 +60,18 @@ exports.getItem = async (req, res, next) => {
 exports.getCandidate = async (req, res, next) => {
   try {
     // 1) Get the data, for the requested item
-    const sniper = await Sniper.findById(req.user.sniper).populate({
-      path: 'items',
-      fields: 'symbol price minPrice maxPrice duration status'
-    });
+    const query = Item.find({ sniper: req.user.sniper._id });
+    const items = await query.sort('symbol');
 
-    const bitcoins = await axios({
-      method: 'GET',
-      url: `https://api.blockchain.com/v3/exchange/tickers`
-    });
-
-    // 1-1) sort items
-    // TODO: bad performance!!! over 2 sec. You'd rather send sniper items and filter only string.
-    const items = [...sniper.items].map(el => el.symbol).sort();
-    const all = bitcoins.data
-      .filter(el => el.symbol.endsWith('-USD'))
-      .sort((a, b) => {
-        const nameA = a.symbol;
-        const nameB = b.symbol;
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0;
-      });
-    console.log(all);
-    // const all = [ 'ADA-USD', 'BCH-USD', 'BNB-USD', 'BTC-USD', 'BTT-USD', 'BUSD-USD', 'DOGE-USD', 'DOT-USD', 'EOS-USD', 'ETH-USD', 'LINK-USD', 'LTC-USD', 'QTUM-USD', 'TRX-USD', 'USDT-USD', 'WIN-USD', 'XLM-USD', 'XRP-USD' ];
-
-    // 1-2) filter items
-    let candidates = [];
-    if (items.length === 0) candidates = all;
-    for (let i = 0, j = 0; items.length !== 0 && i < all.length; i++) {
-      if (j >= items.length || all[i].symbol !== items[j])
-        candidates.push(all[i]);
-      else j++;
-    }
-
-    if (!sniper) {
-      return next(new AppError('There is no sniper!!!', 404));
+    if (!items) {
+      return next(new AppError('There is no item!!!', 404));
     }
 
     // 2) Build template
     // 3) Render template using data from 1)
     res.status(200).render('candidate', {
       title: `Candidates for the next Item`,
-      candidates
+      items
     });
   } catch (err) {
     next(err);

@@ -3,8 +3,7 @@ extends base
 block content
   main.main
 
-    each candidate in candidates 
-      li: span.unregitem= `${candidate.symbol} | price: $${candidate.price_24h} | volume: ${candidate.volume_24h} | last trade price: ${candidate.last_trade_price}` 
-        a.btn.btn--green.btn--small(href='/create') Create 
-      | 
-      span.state on
+    .item-container
+
+      each item in items 
+        li: span.regItem= `${item.symbol}` 
