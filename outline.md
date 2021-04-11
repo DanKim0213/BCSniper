@@ -40,8 +40,8 @@
 - ~~Handle errors globally~~
 - ~~Authenticate and Authorize~~ 
 - ~~Model data~~ 
-- Render views 
-- Change Status automatically 
+- ~~Render views~~ 
+- ~~Change Status automatically~~ 
 - Modify items and views 
 - Register Item from '/sniper/unreg'
 - Sell Items when Sniper meets conditions e.g. due to the date or out of either the max or min price
