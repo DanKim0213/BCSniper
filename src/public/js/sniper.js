@@ -13,21 +13,9 @@ const updateData = async (id, price, status, symbol) => {
       }
     });
 
-    if (res.data.status !== 'success') {
-      showAlert(`Failed with ${symbol}`, 'Something went wrong while updating!');
-      return { price, status }
-    }
+    return { nprice: price, nstatus: status }
   } catch (err) {
-    showAlert('error', err.response.data.message);
-  }
-};
-
-// TODO: sell Item
-const sellItem = async () => {
-  try {
-    const { preData, postData } = fetchData();
-  } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('error', err.message);
   }
 };
 
@@ -42,19 +30,28 @@ export const watchItem = async (item) => {
     // 2) Compare and Update
     if (item.price !== newItem.data.price_24h) {
       const status = item.purchasedAt*1 < newItem.data.price_24h*1 ? 'WINNING' : 'LOSING';
-      await updateData(item.id, newItem.data.price_24h, status, item.symbol);
+      return await updateData(item.id, newItem.data.price_24h, status, item.symbol);
     }
+
+  } catch (err) {
+    showAlert('error', 'Something went wrong while watching!!!');
+  }
+}
+
+// TODO: sellItem and setData
+export const sellItem = async () => {
+  try {
 
   } catch (err) {
     showAlert('error', err.message);
   }
-}
+};
 
 // Duration, minPrice, maxPrice
 export const setData = async () => {
   try {
     
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('error', err.message);
   }
 }

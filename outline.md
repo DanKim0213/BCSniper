@@ -42,12 +42,10 @@
 - ~~Model data~~ 
 - Render views 
 - Change Status automatically 
+- Modify items and views 
+- Register Item from '/sniper/unreg'
+- Sell Items when Sniper meets conditions e.g. due to the date or out of either the max or min price
+- Update Item every 1 min
 - Sniper is used as an Announcer 
 - Set interval request using Event Source 
-- Display multiple mybitcoin
-- Limit upper bound and lower bound
 - ...
-- Allow Authentication  
-
-## Feedback
-- Implement orderQty

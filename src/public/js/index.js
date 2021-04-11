@@ -65,17 +65,16 @@ if (cardContainer) {
   let purchasedAt;
   let status; 
 
-  console.log(Date.now());
   for (let i = 0; i < idArr.length; i++) {
     id = idArr[i].innerHTML;
     symbol = symbolArr[i].innerHTML;
     price = priceArr[i].innerHTML.split('$')[1];
     purchasedAt = purchasedAtArr[i].innerHTML.split('$')[1];
     status = statusArr[i].innerHTML;
-    const { nprice, nstatus } = watchItem({id, symbol, price, purchasedAt});
-
-    price = nprice;
-    status = nstatus;
+    watchItem({id, symbol, price, purchasedAt}).then(({nprice, nstatus}) => {
+      priceArr[i].innerHTML = `$${nprice}`;
+      statusArr[i].innerHTML = nstatus;
+    });
   }
 }
 
