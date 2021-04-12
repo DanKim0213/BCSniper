@@ -64,8 +64,6 @@ exports.getCandidate = async (req, res, next) => {
     const query = Item.find({ sniper: req.user.sniper._id });
     const items = await query.sort('symbol');
 
-    // TODO: if there is no item??
-
     const coins = await axios({
       method: 'GET',
       url: 'https://api.blockchain.com/v3/exchange/tickers'
@@ -97,9 +95,23 @@ exports.getCandidate = async (req, res, next) => {
   }
 };
 
-exports.getCreateForm = (req, res) => {
-  res.status(200).render('create', {
-    title: 'Create Item'
+exports.getCreateItemForm = async (req, res, next) => {
+  try {
+    const symbolNprice = req.params.symbolNprice.split('-');
+    console.log(symbolNprice);
+    res.status(200).render('createItem', {
+      title: 'Create Item',
+      symbol: symbolNprice[0],
+      price: symbolNprice[2]
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getSignupForm = (req, res) => {
+  res.status(200).render('signup', {
+    title: 'Sign up'
   });
 };
 

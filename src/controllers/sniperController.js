@@ -59,5 +59,3 @@ exports.unregisterSniper = async (req, res, next) => {
     next(err);
   }
 };
-
-// TODO: each sniper has unique items

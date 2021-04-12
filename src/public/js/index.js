@@ -2,6 +2,7 @@ import '@babel/polyfill';
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { watchItem } from './sniper';
+import { createItem } from './createItem';
 
 // DOM ELEMENTS
 const loginForm = document.querySelector('.form--login');
@@ -9,7 +10,7 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const cardContainer = document.querySelector('.card-container');
-const itemContainer = document.querySelector('.item-container');
+const createItemForm = document.querySelector('.form--createItem');
 
 if (loginForm)
   loginForm.addEventListener('submit', e => {
@@ -76,3 +77,14 @@ if (cardContainer) {
     });
   }
 }
+
+if (createItemForm)
+  createItemForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const symbol = document.getElementById('symbol').innerHTML;
+    const price = document.getElementById('price').value;
+    const duration = document.getElementById('duration').value;
+    const maxPrice = document.getElementById('maxPrice').value;
+    const minPrice = document.getElementById('minPrice').value;
+    createItem({symbol, price, duration, maxPrice, minPrice});
+  });

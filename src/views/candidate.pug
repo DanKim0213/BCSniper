@@ -14,5 +14,5 @@ block content
             img.cta__img.cta__img--1(src='/img/logo-white.png', alt='')
             .cta__content
               h2.heading-secondary What are you waiting for?
-              p.cta__text= `${item.symbol} only costs $${item.price_24h}🤫 Make it yours today!`
-              button.btn.btn--green.span-all-rows Buy now!
+              p.cta__text= `${item.symbol} only costs $${item.last_trade_price}🤫 Make it yours today!`
+              a.btn.btn--green.span-all-rows(href=`/sniper/create/${item.symbol}-${item.last_trade_price}`) Buy now!

@@ -4,7 +4,8 @@ const itemSchema = new mongoose.Schema(
   {
     symbol: {
       type: String,
-      required: [true, 'No item name']
+      required: [true, 'No item name'],
+      unique: true
     },
     createdAt: {
       type: Date,

@@ -19,7 +19,6 @@ exports.createItem = async (req, res, next) => {
       duration: input.duration,
       maxPrice: input.maxPrice,
       minPrice: input.minPrice,
-      status: input.status,
       sniper: input.sniper
     });
 
