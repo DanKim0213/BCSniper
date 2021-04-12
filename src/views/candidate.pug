@@ -5,5 +5,14 @@ block content
 
     .item-container
 
-      each item in items 
-        li: span.regItem= `${item.symbol}` 
+      each item in candidates
+        section.section-cta
+          .cta
+            .cta__img.cta__img--logo
+              - const imgName = item.symbol.split('-')
+              img(src=`/img/items/${imgName[0]}.webp`, alt='Bitcoin logo')
+            img.cta__img.cta__img--1(src='/img/logo-white.png', alt='')
+            .cta__content
+              h2.heading-secondary What are you waiting for?
+              p.cta__text= `${item.symbol} only costs $${item.price_24h}🤫 Make it yours today!`
+              button.btn.btn--green.span-all-rows Buy now!

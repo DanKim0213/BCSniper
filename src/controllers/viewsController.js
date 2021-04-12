@@ -1,13 +1,14 @@
+/* eslint-disable no-plusplus */
+const axios = require('axios');
 const Sniper = require('../models/sniperModel');
 const User = require('../models/userModel');
 const Item = require('../models/itemModel');
 const AppError = require('../utils/appError');
 
-// TODO: overview.js in public
 exports.getOverview = (req, res, next) => {
-  res.status(200).render('overview', {
-    title: 'BCSniper Overview',
-    message: 'Bitcoin Sniper Overview'
+  res.status(200).render('home', {
+    title: 'BCSniper Home',
+    message: 'Bitcoin Sniper Home'
   });
 };
 
@@ -63,15 +64,33 @@ exports.getCandidate = async (req, res, next) => {
     const query = Item.find({ sniper: req.user.sniper._id });
     const items = await query.sort('symbol');
 
-    if (!items) {
-      return next(new AppError('There is no item!!!', 404));
+    // TODO: if there is no item??
+
+    const coins = await axios({
+      method: 'GET',
+      url: 'https://api.blockchain.com/v3/exchange/tickers'
+    });
+    const all = coins.data
+      .filter(el => el.symbol.endsWith('-USD'))
+      .sort((a, b) => {
+        // symbol is unique
+        if (a.symbol < b.symbol) return -1;
+        return 1;
+      });
+
+    let candidates = [];
+    if (items.length === 0) candidates = all;
+    for (let i = 0, j = 0; items.length !== 0 && i < all.length; i++) {
+      if (j >= items.length || all[i].symbol !== items[j].symbol)
+        candidates.push(all[i]);
+      else j++;
     }
 
     // 2) Build template
     // 3) Render template using data from 1)
     res.status(200).render('candidate', {
       title: `Candidates for the next Item`,
-      items
+      candidates
     });
   } catch (err) {
     next(err);

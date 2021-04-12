@@ -2,7 +2,6 @@ import '@babel/polyfill';
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { watchItem } from './sniper';
-import { getUnregItems } from './candidate';
 
 // DOM ELEMENTS
 const loginForm = document.querySelector('.form--login');
@@ -77,23 +76,3 @@ if (cardContainer) {
     });
   }
 }
-
-if (itemContainer) {
-  // 1) figure out unregItems
-  const regItemArr = document.querySelectorAll('.regItem');
-  let regItems = [];
-  for (let el of regItemArr) {
-    regItems.push(el.innerHTML);
-  }
-  getUnregItems(regItems).then(candidates => {
-    for (let candidate of candidates) {
-      // 2) create new element  
-      const tag = document.createElement('p');
-      const txt = document.createTextNode(candidate.symbol);
-      tag.appendChild(txt);
-    
-      // 3) append the element
-      itemContainer.appendChild(tag);
-    }
-  });
-} 
