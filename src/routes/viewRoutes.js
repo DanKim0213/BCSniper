@@ -6,14 +6,14 @@ const router = express.Router();
 
 router.get('/', authController.isLoggedIn, viewsController.getOverview);
 router.route('/sniper').get(authController.protect, viewsController.getSniper);
-router
-  .route('/sniper/items/:symbol')
-  .get(authController.protect, viewsController.getItem);
 router.get(
   '/sniper/unreg',
   authController.protect,
   viewsController.getCandidate
 );
+router
+  .route('/sniper/items/:symbol') // TODO: '/sniper/:symbol'
+  .get(authController.protect, viewsController.getItem);
 router.get(
   '/sniper/create/:symbolNprice',
   authController.protect,

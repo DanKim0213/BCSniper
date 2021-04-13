@@ -98,7 +98,6 @@ exports.getCandidate = async (req, res, next) => {
 exports.getCreateItemForm = async (req, res, next) => {
   try {
     const symbolNprice = req.params.symbolNprice.split('-');
-    console.log(symbolNprice);
     res.status(200).render('createItem', {
       title: 'Create Item',
       symbol: symbolNprice[0],

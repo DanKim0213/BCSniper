@@ -28,7 +28,7 @@ block content
             p.itemId.card__text= `${item._id}`
             p.itemPurchasedAt.card__text= `purchased at $${item.purchasedAt}`
             span.card__text=` on ${item.createdAt.toLocaleString('en-us', {month: 'short',day: 'numeric'})}.`
-            p.card__text= `The profit is $${Math.floor(item.price - item.purchasedAt)}`
+            p.card__text= `The profit is $${((item.price - item.purchasedAt) * 1).toFixed(2)}`
             .card__data
               svg.card__icon
                 use(xlink:href='/img/icons.svg#icon-trending-down')
@@ -55,4 +55,4 @@ block content
               span.card__footer-value= `${item.incPercent}%`
               | 
               span.card__footer-text changed
-            a.btn.btn--green.btn--small(href=`/sniper/items/${item.symbol}`) Details
+            button.sellItemNow.btn.btn--green.btn--small Sell Now

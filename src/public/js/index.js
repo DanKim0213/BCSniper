@@ -1,7 +1,7 @@
 import '@babel/polyfill';
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
-import { watchItem } from './sniper';
+import { watchItem, sellItemNow, sellItem } from './sniper';
 import { createItem } from './createItem';
 
 // DOM ELEMENTS
@@ -11,6 +11,7 @@ const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const cardContainer = document.querySelector('.card-container');
 const createItemForm = document.querySelector('.form--createItem');
+const sellItemNowBtn = document.querySelectorAll('.sellItemNow');
 
 if (loginForm)
   loginForm.addEventListener('submit', e => {
@@ -71,10 +72,12 @@ if (cardContainer) {
     price = priceArr[i].innerHTML.split('$')[1];
     purchasedAt = purchasedAtArr[i].innerHTML.split('$')[1];
     status = statusArr[i].innerHTML;
-    watchItem({id, symbol, price, purchasedAt}).then(({nprice, nstatus}) => {
-      priceArr[i].innerHTML = `$${nprice}`;
-      statusArr[i].innerHTML = nstatus;
-    });
+    watchItem({id, symbol, price, purchasedAt})
+      .then(({nprice, nstatus}) => {
+        priceArr[i].innerHTML = `$${nprice}`;
+        statusArr[i].innerHTML = nstatus;
+      }) // TODO: .then(() => sellItem())
+      .catch(err => console.log(err));
   }
 }
 
@@ -88,3 +91,14 @@ if (createItemForm)
     const minPrice = document.getElementById('minPrice').value;
     createItem({symbol, price, duration, maxPrice, minPrice});
   });
+
+if (sellItemNowBtn) 
+  sellItemNowBtn.forEach(el => el.addEventListener('click', async () => {
+    const cardEl = el.parentElement.parentElement;
+    const symbol = cardEl.children[0].getElementsByClassName('itemSymbol')[0].innerHTML;
+    const itemId = cardEl.children[1].getElementsByClassName('itemId')[0].innerHTML;
+    const itemStatus = cardEl.children[1].getElementsByClassName('itemStatus')[0].innerHTML;
+
+    const status = await sellItemNow({symbol, itemId, itemStatus});
+    if (status === 'success') cardEl.remove();
+  }));

@@ -13,11 +13,12 @@ exports.deleteSniper = factory.deleteOne(Sniper);
 exports.matchUser = (req, res, next) => {
   try {
     // req.user.sniper._id is Object while id is String
-    if (!req.user.sniper || req.user.sniper.id !== req.params.id) {
+    if (!req.user.sniper) {
       return next(
         new AppError('You are not allowed to access to the Sniper', 403)
       );
     }
+    req.params.id = req.user.sniper.id;
     next();
   } catch (err) {
     next(err);

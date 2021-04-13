@@ -11,10 +11,10 @@ router.use(authController.protect);
 
 // Restrict from ('admin', 'user') to ('admin')
 router.use(authController.restrictTo('admin', 'user'));
-router.route('/me').post(sniperController.registerSniper);
 router
-  .route('/me/:id')
+  .route('/me')
   .get(sniperController.matchUser, sniperController.getSniper)
+  .post(sniperController.registerSniper)
   .patch(sniperController.matchUser, sniperController.updateSniper)
   .delete(sniperController.matchUser, sniperController.unregisterSniper);
 
@@ -23,6 +23,7 @@ router
   .route('/')
   .get(sniperController.getAllSniper)
   .post(sniperController.createSniper);
+// from '/me' to '/:id'
 router
   .route('/:id')
   .get(sniperController.getSniper)
