@@ -15,6 +15,12 @@ router
 router.route('/within-a-week').get(itemController.aliasWithinAWeek);
 
 router.use(authController.restrictTo('admin', 'user'));
+router.post(
+  '/watch/:id/',
+  itemController.matchSniper,
+  itemController.watchItem
+);
+router.get('/symbol/:symbol', itemController.getSymbolItem);
 router
   .route('/:id')
   .get(itemController.matchSniper, itemController.getItem)

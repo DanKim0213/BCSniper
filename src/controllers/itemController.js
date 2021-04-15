@@ -1,3 +1,4 @@
+const axios = require('axios');
 const Item = require('../models/itemModel');
 const factory = require('./handlerFactory');
 const APIFeatures = require('../utils/apiFeatures');
@@ -64,6 +65,61 @@ exports.matchSniper = async (req, res, next) => {
       );
     }
     next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.watchItem = async (req, res, next) => {
+  try {
+    const bitcoin = await axios({
+      method: 'GET',
+      url: `https://api.blockchain.com/v3/exchange/tickers/${req.body.symbol}`
+    });
+
+    const item = await Item.findByIdAndUpdate(
+      req.params.id,
+      {
+        price: bitcoin.data.price_24h,
+        priceChangedAt: Date.now()
+      },
+      {
+        new: true,
+        runValidators: true
+      }
+    );
+
+    if (!item) return new AppError('No item found by the id', 404);
+
+    const status = item.purchasedAt < item.price ? 'WINNING' : 'LOSING';
+    res.status(200).json({
+      status: 'success',
+      data: {
+        item,
+        status
+      }
+    });
+  } catch (err) {
+    // symbol could be incorrect from blockchain.com
+    next(err);
+  }
+};
+
+exports.getSymbolItem = async (req, res, next) => {
+  try {
+    const item = await Item.findOne({
+      sniper: req.user.sniper,
+      symbol: req.params.symbol
+    });
+
+    // if (!item) return new AppError('No item found by the symbol!', 404);
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        item
+      }
+    });
   } catch (err) {
     next(err);
   }

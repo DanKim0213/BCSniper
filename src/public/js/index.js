@@ -2,6 +2,7 @@ import '@babel/polyfill';
 import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { watchItem, sellItemNow, sellItem } from './sniper';
+import { getCandidate } from './candidate';
 import { createItem } from './createItem';
 
 // DOM ELEMENTS
@@ -12,6 +13,7 @@ const userPasswordForm = document.querySelector('.form-user-password');
 const cardContainer = document.querySelector('.card-container');
 const createItemForm = document.querySelector('.form--createItem');
 const sellItemNowBtn = document.querySelectorAll('.sellItemNow');
+const itemContainer = document.querySelector('.item-container');
 
 if (loginForm)
   loginForm.addEventListener('submit', e => {
@@ -53,29 +55,23 @@ if (userPasswordForm)
     document.getElementById('password-confirm').value = '';
   });
 
+// TODO: do each item
 if (cardContainer) {
   const idArr = document.querySelectorAll('.itemId');
   const symbolArr = document.querySelectorAll('.itemSymbol');
   const priceArr = document.querySelectorAll('.itemPrice');
-  const purchasedAtArr = document.querySelectorAll('.itemPurchasedAt');
   const statusArr = document.querySelectorAll('.itemStatus');
 
   let id;
   let symbol;
-  let price;
-  let purchasedAt;
-  let status; 
 
   for (let i = 0; i < idArr.length; i++) {
     id = idArr[i].innerHTML;
     symbol = symbolArr[i].innerHTML;
-    price = priceArr[i].innerHTML.split('$')[1];
-    purchasedAt = purchasedAtArr[i].innerHTML.split('$')[1];
-    status = statusArr[i].innerHTML;
-    watchItem({id, symbol, price, purchasedAt})
-      .then(({nprice, nstatus}) => {
-        priceArr[i].innerHTML = `$${nprice}`;
-        statusArr[i].innerHTML = nstatus;
+    watchItem({id, symbol})
+      .then((data) => {
+        priceArr[i].innerHTML = `$${data.data.item.price}`;
+        statusArr[i].innerHTML = data.status;
       }) // TODO: .then(() => sellItem())
       .catch(err => console.log(err));
   }
@@ -93,7 +89,8 @@ if (createItemForm)
   });
 
 if (sellItemNowBtn) 
-  sellItemNowBtn.forEach(el => el.addEventListener('click', async () => {
+  sellItemNowBtn.forEach(el => el.addEventListener('click', async e => {
+    e.preventDefault();
     const cardEl = el.parentElement.parentElement;
     const symbol = cardEl.children[0].getElementsByClassName('itemSymbol')[0].innerHTML;
     const itemId = cardEl.children[1].getElementsByClassName('itemId')[0].innerHTML;
@@ -102,3 +99,10 @@ if (sellItemNowBtn)
     const status = await sellItemNow({symbol, itemId, itemStatus});
     if (status === 'success') cardEl.remove();
   }));
+
+if (itemContainer) {
+  const all = ['BTC-USD', 'ETH-USD', 'BCH-USD', 'DOT-USD'];
+  all.forEach(el => {
+    getCandidate(el);
+  });
+}

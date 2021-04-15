@@ -1,5 +1,4 @@
 /* eslint-disable no-plusplus */
-const axios = require('axios');
 const Sniper = require('../models/sniperModel');
 const User = require('../models/userModel');
 const Item = require('../models/itemModel');
@@ -58,41 +57,10 @@ exports.getItem = async (req, res, next) => {
   }
 };
 
-exports.getCandidate = async (req, res, next) => {
-  try {
-    // 1) Get the data, for the requested item
-    const query = Item.find({ sniper: req.user.sniper._id });
-    const items = await query.sort('symbol');
-
-    const coins = await axios({
-      method: 'GET',
-      url: 'https://api.blockchain.com/v3/exchange/tickers'
-    });
-    const all = coins.data
-      .filter(el => el.symbol.endsWith('-USD'))
-      .sort((a, b) => {
-        // symbol is unique
-        if (a.symbol < b.symbol) return -1;
-        return 1;
-      });
-
-    let candidates = [];
-    if (items.length === 0) candidates = all;
-    for (let i = 0, j = 0; items.length !== 0 && i < all.length; i++) {
-      if (j >= items.length || all[i].symbol !== items[j].symbol)
-        candidates.push(all[i]);
-      else j++;
-    }
-
-    // 2) Build template
-    // 3) Render template using data from 1)
-    res.status(200).render('candidate', {
-      title: `Candidates for the next Item`,
-      candidates
-    });
-  } catch (err) {
-    next(err);
-  }
+exports.getCandidate = (req, res) => {
+  res.status(200).render('candidate', {
+    title: `Candidates for the next Item`
+  });
 };
 
 exports.getCreateItemForm = async (req, res, next) => {

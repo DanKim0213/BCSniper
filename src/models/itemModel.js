@@ -4,8 +4,7 @@ const itemSchema = new mongoose.Schema(
   {
     symbol: {
       type: String,
-      required: [true, 'No item name'],
-      unique: true
+      required: [true, 'No item name']
     },
     createdAt: {
       type: Date,
@@ -55,11 +54,6 @@ const itemSchema = new mongoose.Schema(
         },
         message: `Min price ({VALUE}) must be set smaller than the current price`
       }
-    },
-    status: {
-      type: String,
-      enum: ['JOINING', 'LOSING', 'WINNING', 'LOST', 'WON'],
-      default: 'JOINING'
     },
     sniper: {
       type: mongoose.Schema.ObjectId,
