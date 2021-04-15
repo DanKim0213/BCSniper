@@ -9,7 +9,7 @@ router.use(authController.protect);
 router
   .route('/')
   .get(authController.restrictTo('admin'), itemController.getAllItems)
-  .post(authController.restrictTo('admin', 'user'), itemController.createItem);
+  .post(authController.restrictTo('admin'), itemController.createItem);
 
 // TODO: matchSniper as well as route('/within').get();
 router.route('/within-a-week').get(itemController.aliasWithinAWeek);
@@ -20,7 +20,11 @@ router.post(
   itemController.matchSniper,
   itemController.watchItem
 );
-router.get('/symbol/:symbol', itemController.getSymbolItem);
+router
+  .route('/symbol/:symbol')
+  .get(itemController.getSniperItem)
+  .delete(itemController.sellSniperItem);
+router.post('/symbol', itemController.createSniperItem);
 router
   .route('/:id')
   .get(itemController.matchSniper, itemController.getItem)

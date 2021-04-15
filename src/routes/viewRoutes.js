@@ -11,9 +11,6 @@ router.get(
   authController.protect,
   viewsController.getCandidate
 );
-router
-  .route('/sniper/items/:symbol') // TODO: '/sniper/:symbol'
-  .get(authController.protect, viewsController.getItem);
 router.get(
   '/sniper/create/:symbolNprice',
   authController.protect,

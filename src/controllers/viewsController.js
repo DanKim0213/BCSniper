@@ -34,6 +34,7 @@ exports.getSniper = async (req, res, next) => {
   }
 };
 
+// keep this method for later use
 exports.getItem = async (req, res, next) => {
   try {
     // 1) Get the data, for the requested item

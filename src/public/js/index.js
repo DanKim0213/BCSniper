@@ -55,7 +55,6 @@ if (userPasswordForm)
     document.getElementById('password-confirm').value = '';
   });
 
-// TODO: do each item
 if (cardContainer) {
   const idArr = document.querySelectorAll('.itemId');
   const symbolArr = document.querySelectorAll('.itemSymbol');
@@ -71,7 +70,7 @@ if (cardContainer) {
     watchItem({id, symbol})
       .then((data) => {
         priceArr[i].innerHTML = `$${data.data.item.price}`;
-        statusArr[i].innerHTML = data.status;
+        statusArr[i].innerHTML = data.data.status;
       }) // TODO: .then(() => sellItem())
       .catch(err => console.log(err));
   }
@@ -81,27 +80,27 @@ if (createItemForm)
   createItemForm.addEventListener('submit', e => {
     e.preventDefault();
     const symbol = document.getElementById('symbol').innerHTML;
-    const price = document.getElementById('price').value;
     const duration = document.getElementById('duration').value;
     const maxPrice = document.getElementById('maxPrice').value;
     const minPrice = document.getElementById('minPrice').value;
-    createItem({symbol, price, duration, maxPrice, minPrice});
+    createItem({symbol, duration, maxPrice, minPrice});
   });
 
 if (sellItemNowBtn) 
   sellItemNowBtn.forEach(el => el.addEventListener('click', async e => {
     e.preventDefault();
     const cardEl = el.parentElement.parentElement;
-    const symbol = cardEl.children[0].getElementsByClassName('itemSymbol')[0].innerHTML;
-    const itemId = cardEl.children[1].getElementsByClassName('itemId')[0].innerHTML;
-    const itemStatus = cardEl.children[1].getElementsByClassName('itemStatus')[0].innerHTML;
-
-    const status = await sellItemNow({symbol, itemId, itemStatus});
-    if (status === 'success') cardEl.remove();
+    const symbol = cardEl.querySelector('.itemSymbol').innerHTML;
+    const res = await sellItemNow({symbol});
+    if (res === 'success') cardEl.remove();
   }));
 
 if (itemContainer) {
-  const all = ['BTC-USD', 'ETH-USD', 'BCH-USD', 'DOT-USD'];
+  const all = [
+    'AAVE-USD', 'ALGO-USD', 'DGLD-USD', 'DOT-USD', 'LEND-USD', 
+    'LTC-USD', 'OGN-USD', 'PAX-USD', 'USDT-USD', 'XLM-USD', 'XRP-USD', 
+    'YFI-USD', 'BTC-USD', 'ETH-USD', 'BCH-USD'
+  ];
   all.forEach(el => {
     getCandidate(el);
   });

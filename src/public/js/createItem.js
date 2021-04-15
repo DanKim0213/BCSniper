@@ -3,21 +3,12 @@ import { showAlert } from './alerts';
 
 export const createItem = async (item) => {
   try {
-    const coin = await axios({
-      method: 'GET',
-      url: `https://api.blockchain.com/v3/exchange/tickers/${item.symbol}`
-    });
-
-    if (coin.data.last_trade_price >= item.maxPrice || coin.data.last_trade_price <= item.minPrice)
-      throw new Error('Max or Min validation error');
-
     const res = await axios({
       method: 'POST',
-      url: '/api/v1/items',
+      url: '/api/v1/items/symbol',
       data: {
         symbol: item.symbol,
         duration: item.duration,
-        price: coin.data.last_trade_price,
         maxPrice: item.maxPrice,
         minPrice: item.minPrice
       }
@@ -29,6 +20,7 @@ export const createItem = async (item) => {
     }
     
   } catch (err) {
+    console.log(err.message);
     showAlert('error', 'Uh-oh Something went wrong!!! Please check validation or the item available'); 
   }
 }

@@ -1,50 +1,31 @@
 import axios from 'axios';
 import { showAlert } from './alerts';
 
-export const watchItem = async (item) => {
+export const watchItem = async ({id, symbol}) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: `/api/v1/items/watch/${item.id}`,
-      data: { symbol: item.symbol }
+      url: `/api/v1/items/watch/${id}`,
+      data: { symbol }
     });
     
+    console.log(`${symbol} updated successfully`);
     return res.data;
   } catch (err) {
-    showAlert('error', 'Please wait a little bit longer!!!');
+    // showAlert('error', 'Please wait a little bit longer!!!');
+    console.log('Please wait a little bit longer...');
   }
 }
 
-export const sellItemNow = async ({symbol, itemId, status}) => {
+export const sellItemNow = async ({symbol}) => {
   try {
-    // 1) calculate Profit
-    const coin = await axios({
-      method: 'GET',
-      url: `https://api.blockchain.com/v3/exchange/tickers/${symbol}`
-    });
-    const sniper = await axios({
-      method: 'GET',
-      url: '/api/v1/sniper/me'
-    });
-
-    const sniperMoney = sniper.data.data.data.money;
-    const profit = coin.data.price_24h - sniper.data.data.data.items.find(el => el._id === itemId).purchasedAt;
-
-    // 2) update Sniper's money
-    const deleteItem = axios({
+    const res = await axios({
       method: 'DELETE',
-      url: `/api/v1/items/${itemId}`
+      url: `/api/v1/sniper/items/symbol/${symbol}`
     });
-    const updateSniper = axios({
-      method: 'PATCH',
-      url: '/api/v1/sniper/me',
-      data: {money: sniperMoney + (profit).toFixed(2) * 1}
-    });
-    const res = await Promise.all([ deleteItem, updateSniper ]);
 
-    if (res[0].status === 204 && res[1].status === 200) {
-      const finalVerb = status === 'WINNING'? 'WON' : 'LOST';
-      showAlert('success', `${symbol} is sold. You ${finalVerb}.`);
+    if (res.data.status === 'success') {
+      showAlert('success', `${symbol} item sold: YOU ${res.data.data.status}!`);
       return 'success';
     }
 
