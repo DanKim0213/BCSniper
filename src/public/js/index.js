@@ -10,7 +10,7 @@ const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
-const cardContainer = document.querySelector('.card-container');
+const cards = document.querySelectorAll('.card');
 const createItemForm = document.querySelector('.form--createItem');
 const sellItemNowBtn = document.querySelectorAll('.sellItemNow');
 const itemContainer = document.querySelector('.item-container');
@@ -55,25 +55,36 @@ if (userPasswordForm)
     document.getElementById('password-confirm').value = '';
   });
 
-if (cardContainer) {
-  const idArr = document.querySelectorAll('.itemId');
-  const symbolArr = document.querySelectorAll('.itemSymbol');
-  const priceArr = document.querySelectorAll('.itemPrice');
-  const statusArr = document.querySelectorAll('.itemStatus');
-
-  let id;
-  let symbol;
-
-  for (let i = 0; i < idArr.length; i++) {
-    id = idArr[i].innerHTML;
-    symbol = symbolArr[i].innerHTML;
-    watchItem({id, symbol})
+// TODO: update profit on view
+if (cards) {
+  cards.forEach(el => {
+    const idEl = el.querySelector('.itemId');
+    const symbolEl = el.querySelector('.itemSymbol');
+    const priceEl = el.querySelector('.itemPrice');
+    const statusEl = el.querySelector('.itemStatus');
+    const maxEl = el.querySelector('.max');
+    const minEl = el.querySelector('.min');
+    const durEl = el.querySelector('.itemDuration');
+    
+    watchItem({id: idEl.innerHTML, symbol: symbolEl.innerHTML})
       .then((data) => {
-        priceArr[i].innerHTML = `$${data.data.item.price}`;
-        statusArr[i].innerHTML = data.data.status;
-      }) // TODO: .then(() => sellItem())
+        const price = data.item.price;
+        priceEl.innerHTML = `$${price}`;
+        statusEl.innerHTML = data.status;
+        return { price, symbol: data.item.symbol };
+      })
+      .then(({ price, symbol }) => {
+        const max = maxEl.innerHTML.split('$')[1];
+        const min = minEl.innerHTML.split('$')[1];
+        const dur = durEl.innerHTML;
+        return sellItem({price, symbol, max, min, dur});
+      })
+      .then(res => {
+        if (res === 'success') 
+          el.parentElement.removeChild(el);
+      })
       .catch(err => console.log(err));
-  }
+  });
 }
 
 if (createItemForm)

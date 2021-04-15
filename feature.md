@@ -7,9 +7,10 @@
 - ~~Modify items and views~~ 
 - ~~sell Item now~~
 - ~~Refactor codes~~
-- sell Item when due to the date
-- sell Item when out of either max or min 
+- ~~sell Item when out of either max or min~~ 
+- ~~sell Item when due to the date~~
 - buy Item using money
+- log history of sellItem and buyItem
 
 ## Feedback
 - what if the button 'SELL NOW!' ocurred error once deleting its item?

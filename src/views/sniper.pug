@@ -32,15 +32,15 @@ block content
             .card__data
               svg.card__icon
                 use(xlink:href='/img/icons.svg#icon-trending-down')
-              span= `at least $${item.minPrice}`
+              span.min= `at least $${item.minPrice}`
             .card__data
               svg.card__icon
                 use(xlink:href='/img/icons.svg#icon-calendar')
-              span= `${item.duration.toLocaleString('ko-KR', {month: 'long', day: 'numeric', year: 'numeric'})}`
+              span.itemDuration= `${item.duration.toLocaleString('ko-KR', {month: 'long', day: 'numeric', year: 'numeric'})}`
             .card__data
               svg.card__icon
                 use(xlink:href='/img/icons.svg#icon-trending-up')
-              span= `at most $${item.maxPrice}`
+              span.max= `at most $${item.maxPrice}`
             .card__data
               svg.card__icon
                 use(xlink:href='/img/icons.svg#icon-user')

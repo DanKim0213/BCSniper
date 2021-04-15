@@ -45,6 +45,7 @@
 - Modify items and views 
 - Register Item from '/sniper/unreg'
 - Sell Items when Sniper meets conditions e.g. due to the date or out of either the max or min price
+- Log the history of sellItem and buyItem on Sniper Controller
 - Update Item every 1 min
 - Sniper is used as an Announcer 
 - Set interval request using Event Source 
