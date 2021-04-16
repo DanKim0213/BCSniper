@@ -111,6 +111,18 @@ exports.createSniperItem = async (req, res, next) => {
       url: `https://api.blockchain.com/v3/exchange/tickers/${req.body.symbol}`
     });
 
+    if (
+      coin.data.price_24h > req.user.sniper.money ||
+      coin.data.price_24h > req.body.maxPrice ||
+      coin.data.price_24h < req.body.minPrice
+    )
+      return next(
+        new AppError(
+          'Please make sure that price, max price, min price are vaild!!!',
+          400
+        )
+      );
+
     const item = await Item.create({
       sniper: req.user.sniper,
       price: coin.data.price_24h,
@@ -121,6 +133,16 @@ exports.createSniperItem = async (req, res, next) => {
     });
 
     if (!item) return new AppError('could not create Item', 403);
+
+    // .findById and sniper.save() to run validator (money > 0)
+    const sniper = await Sniper.findById(req.user.sniper);
+    sniper.money -= item.purchasedAt;
+    await sniper.save();
+    // await Sniper.findByIdAndUpdate(item.sniper, {
+    //   money: req.user.sniper.money - item.purchasedAt
+    // });
+    req.user.sniper.money -= item.purchasedAt;
+    res.locals.user.sniper.money -= item.purchasedAt;
 
     res.status(201).json({
       status: 'success',
@@ -158,6 +180,7 @@ exports.sellSniperItem = async (req, res, next) => {
       }
     );
     req.user.sniper.money = sniper.money;
+    res.locals.user.sniper.money = sniper.money;
 
     const status = profit > 0 ? 'WON' : 'LOST';
     res.status(200).json({

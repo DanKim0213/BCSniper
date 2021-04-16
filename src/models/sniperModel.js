@@ -4,7 +4,13 @@ const sniperSchema = new mongoose.Schema(
   {
     money: {
       type: Number,
-      default: 0
+      default: 10000,
+      validate: {
+        validator: function (val) {
+          return val >= 0;
+        },
+        message: `Money ({VALUE}) is not enough`
+      }
     },
     active: {
       type: Boolean,

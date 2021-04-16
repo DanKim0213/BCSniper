@@ -39,3 +39,25 @@ export const getCandidate = async (symbol) => {
     showAlert('error', 'Something went wrong while Getting candidates');    
   }
 }
+
+export const createItem = async ({symbol, duration, maxPrice, minPrice}) => {
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: '/api/v1/items/symbol',
+      data: {
+        symbol,
+        duration,
+        maxPrice,
+        minPrice
+      }
+    });
+
+    if (res.data.status === 'success') {
+      showAlert('success', `ITEM ${symbol} updated successfully!`);
+      location.assign('/sniper');
+    }
+  } catch (err) {
+    showAlert('error', err.response.data.message);
+  }
+}
