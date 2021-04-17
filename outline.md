@@ -42,13 +42,16 @@
 - ~~Model data~~ 
 - ~~Render views~~ 
 - ~~Change Status automatically~~ 
-- Modify items and views 
-- Register Item from '/sniper/unreg'
-- Sell Items when Sniper meets conditions e.g. due to the date or out of either the max or min price
-- Log the history of sellItem and buyItem on Sniper Controller
+- ~~Modify items and views~~ 
+- ~~Register Item from '/sniper/unreg'~~
+- ~~Sell Items when Sniper meets conditions~~
+- ~~Log the history of sellItem and buyItem on Sniper Controller~~
 - View Signup, Sniper's state, and Home
-- Translate into Korean
-- Update Item every 1 min
 - Sniper is used as an Announcer 
-- Set interval request using Event Source 
-- ...
+- Translate into Korean
+
+## TODO: complement 
+- order how many bitcoins you want, not only one bitcoin
+- change duration, max, min after creating Item
+- set Interval to update All Items e.g. update Item every second
+- Comply with 'Single Responsibility': Sniper-User on sniperController and Item-Sniper on itemController
