@@ -31,5 +31,11 @@ sniperSchema.virtual('items', {
   localField: '_id'
 });
 
+sniperSchema.virtual('logs', {
+  ref: 'Log',
+  foreignField: 'sniper',
+  localField: '_id'
+});
+
 const Sniper = mongoose.model('Sniper', sniperSchema);
 module.exports = Sniper;

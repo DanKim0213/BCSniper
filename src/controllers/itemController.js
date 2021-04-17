@@ -1,6 +1,7 @@
 const axios = require('axios');
 const Item = require('../models/itemModel');
 const Sniper = require('../models/sniperModel');
+const Log = require('../models/logModel');
 const factory = require('./handlerFactory');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
@@ -79,7 +80,6 @@ exports.watchItem = async (req, res, next) => {
       }
     });
   } catch (err) {
-    // symbol could be incorrect from blockchain.com
     next(err);
   }
 };
@@ -134,16 +134,21 @@ exports.createSniperItem = async (req, res, next) => {
 
     if (!item) return new AppError('could not create Item', 403);
 
-    // .findById and sniper.save() to run validator (money > 0)
     const sniper = await Sniper.findById(req.user.sniper);
     sniper.money -= item.purchasedAt;
     await sniper.save();
-    // await Sniper.findByIdAndUpdate(item.sniper, {
-    //   money: req.user.sniper.money - item.purchasedAt
-    // });
     req.user.sniper.money -= item.purchasedAt;
     res.locals.user.sniper.money -= item.purchasedAt;
 
+    await Log.create({
+      money: sniper.money + item.purchasedAt,
+      price: coin.data.price_24h,
+      trade: 'BUY',
+      symbol: req.body.symbol,
+      status: 'JOINING',
+      total: sniper.money,
+      sniper: req.user.sniper
+    });
     res.status(201).json({
       status: 'success',
       data: item
@@ -172,7 +177,7 @@ exports.sellSniperItem = async (req, res, next) => {
     const sniper = await Sniper.findByIdAndUpdate(
       soldItem.sniper,
       {
-        money: money + profit
+        money: money + soldItem.price
       },
       {
         new: true,
@@ -183,6 +188,15 @@ exports.sellSniperItem = async (req, res, next) => {
     res.locals.user.sniper.money = sniper.money;
 
     const status = profit > 0 ? 'WON' : 'LOST';
+    await Log.create({
+      money,
+      price: coin.data.price_24h,
+      trade: 'SELL',
+      symbol: req.params.symbol,
+      status,
+      total: sniper.money,
+      sniper: req.user.sniper
+    });
     res.status(200).json({
       status: 'success',
       data: { status }

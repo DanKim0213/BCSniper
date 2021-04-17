@@ -4,7 +4,10 @@ const factory = require('./handlerFactory');
 const AppError = require('../utils/appError');
 
 exports.getAllSniper = factory.getAll(Sniper);
-exports.getSniper = factory.getOne(Sniper, { path: 'items' });
+exports.getSniper = factory.getOne(Sniper, [
+  { path: 'items' },
+  { path: 'logs' }
+]);
 exports.createSniper = factory.createOne(Sniper);
 exports.updateSniper = factory.updateOne(Sniper);
 exports.deleteSniper = factory.deleteOne(Sniper);
