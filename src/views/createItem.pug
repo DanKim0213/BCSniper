@@ -1,6 +1,5 @@
 extends base
 
-//- id is createItem
 block content
   main.main
     .login-form
@@ -8,18 +7,18 @@ block content
       form.form.form--createItem
         .form__group
           label.form__label(for='symbol') Symbol
-          p#symbol.form__input(type='symbol')= `${symbol}-USD`
+          p#symbol.form__input(type='text')= `${symbol}-USD`
         .form__group
           label.form__label(for='price') Price
-          p#price.form__input(type='price')= price
+          p#price.form__input(type='number')= price
         .form__group
           label.form__label(for='maxPrice') Max Price
-          input#maxPrice.form__input(type='maxPrice', placeholder='Max Price must be greater than the Price', required)
+          input#maxPrice.form__input(type='number', min='0', placeholder='9999', required)
         .form__group
           label.form__label(for='minPrice') Min Price
-          input#minPrice.form__input(type='minPrice', placeholder='Min Price must be less than the Price', required)
+          input#minPrice.form__input(type='number', min='0', placeholder='1', required)
         .form__group
           label.form__label(for='duration') Duration
-          input#duration.form__input(type='duration', placeholder='Please put in Number', required)
+          input#duration.form__input(type='number', min='0', max='365', placeholder='e.g. 7 for a week', required)
         .form__group
           button.btn.btn--green(href='/sniper') Create

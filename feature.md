@@ -4,7 +4,9 @@
 
 ## Process
 - ~~View signup~~
-- Register Sniper if user doesn't have a Sniper
+- ~~Register Sniper if user doesn't have a Sniper~~
+- View Sniper's state and logs 
+- Fix trivials such as profit value on Card
 
 ## TODO: complement
 - Make password more complicated

@@ -1,6 +1,7 @@
 import '@babel/polyfill';
 import { signup } from './signup';
 import { login, logout } from './login';
+import { registerSniper } from './register';
 import { updateSettings } from './updateSettings';
 import { watchItem, sellItemNow, sellItem } from './sniper';
 import { getCandidate, createItem } from './candidate';
@@ -9,6 +10,7 @@ import { getCandidate, createItem } from './candidate';
 const signupForm = document.querySelector('.form--signup');
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
+const registerForm = document.querySelector('.form--register');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const cards = document.querySelectorAll('.card');
@@ -24,7 +26,7 @@ if (signupForm)
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
     signup(name, email, password, passwordConfirm);
-  })
+  });
 
 if (loginForm)
   loginForm.addEventListener('submit', e => {
@@ -35,6 +37,13 @@ if (loginForm)
   });
 
 if (logOutBtn) logOutBtn.addEventListener('click', logout);
+
+if (registerForm) 
+  registerForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const money = document.getElementById('money').value;
+    registerSniper(money);
+  });
 
 if (userDataForm)
   userDataForm.addEventListener('submit', e => {

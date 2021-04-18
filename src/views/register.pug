@@ -1,0 +1,12 @@
+extends base 
+
+block content 
+  main.main 
+    .login-form 
+      h2.heading-secondary.ma-bt-lg Register your sniper 
+      form.form.form--register 
+        .form__group 
+          label.form__label(for='money') Money 
+          input#money.form__input(type='number', min='1', max='10000', step='any', placeholder='9999')
+        .form__group
+          button.btn.btn--green Register
