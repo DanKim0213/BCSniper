@@ -20,6 +20,7 @@ exports.getSniper = async (req, res, next) => {
     });
 
     if (!sniper) {
+      // TODO: register Sniper
       return next(new AppError('There is no sniper with the user.', 404));
     }
 

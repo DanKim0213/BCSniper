@@ -16,7 +16,7 @@ router.get(
   authController.protect,
   viewsController.getCreateItemForm
 );
-// router.get('/signup', authController.isLoggedIn, viewsController.getSignupForm);
+router.get('/signup', authController.isLoggedIn, viewsController.getSignupForm);
 router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
 router.get('/me', authController.protect, viewsController.getAccount);
 
