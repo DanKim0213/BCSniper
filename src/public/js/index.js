@@ -1,4 +1,5 @@
 import '@babel/polyfill';
+import { viewSniper, viewLog } from './alertInfo';
 import { signup } from './signup';
 import { login, logout } from './login';
 import { registerSniper } from './register';
@@ -7,6 +8,8 @@ import { watchItem, sellItemNow, sellItem } from './sniper';
 import { getCandidate, createItem } from './candidate';
 
 // DOM ELEMENTS
+const viewSniperBtn = document.getElementById('viewSniper');
+const viewLogBtn = document.getElementById('viewLog');
 const signupForm = document.querySelector('.form--signup');
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
@@ -17,6 +20,18 @@ const cards = document.querySelectorAll('.card');
 const createItemForm = document.querySelector('.form--createItem');
 const sellItemNowBtn = document.querySelectorAll('.sellItemNow');
 const itemContainer = document.querySelector('.item-container');
+
+if (viewSniperBtn) 
+  viewSniperBtn.addEventListener('click', e => {
+    e.preventDefault();
+    viewSniper();
+  });
+
+if (viewLogBtn) 
+  viewLogBtn.addEventListener('click', e => {
+    e.preventDefault();
+    viewLog();
+  });
 
 if (signupForm) 
   signupForm.addEventListener('submit', e => {
@@ -61,9 +76,6 @@ if (userPasswordForm)
     const passwordCurrent = document.getElementById('password-current').value;
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('password-confirm').value;
-    // without await vs with await: async fn is Promise 
-    // and the reason why Promise is used is that we need the expected order.
-    // For example, to reassign like below or assign values from the promise.
     await updateSettings(
       { passwordCurrent, password, passwordConfirm },
       'password'
@@ -75,12 +87,12 @@ if (userPasswordForm)
     document.getElementById('password-confirm').value = '';
   });
 
-// TODO: update profit on view
 if (cards) {
   cards.forEach(el => {
     const idEl = el.querySelector('.itemId');
     const symbolEl = el.querySelector('.itemSymbol');
     const priceEl = el.querySelector('.itemPrice');
+    const profitEl = el.querySelector('.itemProfit');
     const statusEl = el.querySelector('.itemStatus');
     const maxEl = el.querySelector('.max');
     const minEl = el.querySelector('.min');
@@ -88,10 +100,10 @@ if (cards) {
     
     watchItem({id: idEl.innerHTML, symbol: symbolEl.innerHTML})
       .then((data) => {
-        const price = data.item.price;
-        priceEl.innerHTML = `$${price}`;
+        priceEl.innerHTML = `$${data.item.price}`;
+        profitEl.innerHTML = `The profit is $${((data.item.price - data.item.purchasedAt) * 1).toFixed(2)}`
         statusEl.innerHTML = data.status;
-        return { price, symbol: data.item.symbol };
+        return { price: data.item.price, symbol: data.item.symbol };
       })
       .then(({ price, symbol }) => {
         const max = maxEl.innerHTML.split('$')[1];

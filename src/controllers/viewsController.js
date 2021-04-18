@@ -20,8 +20,6 @@ exports.getSniper = async (req, res, next) => {
     });
 
     if (!sniper) {
-      // TODO: register Sniper
-      // return next(new AppError('There is no sniper with the user.', 404));
       return res.status(200).render('register', {
         title: 'Register Sniper'
       });
@@ -30,7 +28,7 @@ exports.getSniper = async (req, res, next) => {
     // 2) Build template
     // 3) Render template using data from 1)
     res.status(200).render('sniper', {
-      title: `Sniper with $${sniper.money}`,
+      title: 'Sniper Targeting',
       items: sniper.items
     });
   } catch (err) {

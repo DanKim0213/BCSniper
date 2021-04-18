@@ -3,6 +3,9 @@ header.header
     a.nav__el(href='/') Home
     a.nav__el(href='/sniper') My sniper
     a.nav__el(href='/sniper/unreg') Bitcoins
+    if user 
+      a#viewSniper.nav__el View Sniper
+      a#viewLog.nav__el View Logs
   div.header__logo
     img(src='/img/logo-white.png' alt='BCSniper logo')
   nav.nav.nav--user
