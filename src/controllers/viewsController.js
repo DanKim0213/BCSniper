@@ -2,13 +2,22 @@
 const Sniper = require('../models/sniperModel');
 const User = require('../models/userModel');
 const Item = require('../models/itemModel');
+const Review = require('../models/reviewModel');
 const AppError = require('../utils/appError');
 
-exports.getOverview = (req, res, next) => {
-  res.status(200).render('home', {
-    title: 'BCSniper Home',
-    message: 'Bitcoin Sniper Home'
-  });
+exports.getOverview = async (req, res, next) => {
+  try {
+    const reviews = await Review.find();
+    const images = ['bcscover1.jpg', 'bcscover2.jpg'];
+
+    res.status(200).render('home', {
+      title: 'BCSniper Home',
+      reviews,
+      images
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
 exports.getSniper = async (req, res, next) => {

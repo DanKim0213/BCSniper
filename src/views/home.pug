@@ -1,7 +1,99 @@
 extends base
+include _reviewCard
+
+mixin overviewBox(label, text, icon)
+  .overview-box__detail
+    svg.overview-box__icon
+      use(xlink:href=`/img/icons.svg#icon-${icon}`)
+    span.overview-box__label= label
+    span.overview-box__text= text
 
 block content
-  main.main
-    .card-container
-    h2= title
-    h3= message 
+  section.section-header
+    .header__hero
+      .header__hero-overlay &nbsp;
+      img.header__hero-img(src='/img/bcimgcover.jpg', alt='Bitcoin Cover Image')
+
+    .heading-box
+      h1.heading-primary
+        span Bitcoin Sniper
+      .heading-box__group
+        .heading-box__detail
+          svg.heading-box__icon
+            use(xlink:href='/img/icons.svg#icon-clock')
+          span.heading-box__text Grab the opportunity 
+        .heading-box__detail
+          svg.heading-box__icon
+            use(xlink:href='/img/icons.svg#icon-map-pin')
+          span.heading-box__text Get the maximum profit 
+
+  section.section-description
+    .overview-box
+      div
+        .overview-box__group
+          h2.heading-secondary.ma-bt-lg Quick facts
+          +overviewBox('Launch', 'April 2021', 'calendar')
+          +overviewBox('Difficulty', 'Easy', 'trending-up')
+          +overviewBox('Participants', 'Over a million people', 'user')
+          +overviewBox('Rating', '4.9 / 5', 'star')
+
+        .overview-box__group
+          h2.heading-secondary.ma-bt-lg Google Playstore 
+            .overview-box__detail
+              //- span.overview-box__text= guide.name
+              p
+                | We did a great achievement during this year. <br> 
+                | I hope you feel the same way as we did. <br> 
+                | It would be shame for us if we didn't fulfil your needs. <br> 
+                | hoho <br>
+                | haha <br>
+                | kdjk <br>
+                | kdjk <br>
+                | kdjk <br>
+                | kdjk <br>
+                | kdjk <br>
+                | kdjk <br>
+                | kdjk <br>
+                | kdjk <br>
+                | kdjk <br>
+                | kdjk <br>
+                | kdjk <br>
+                | kdjk <br>
+                | kdjk <br>
+
+
+
+    .description-box
+      h2.heading-secondary.ma-bt-lg About Bitcoin Sniper
+      p.description__text blah blah blah
+
+  section.section-pictures
+    each img, i in images
+      .picture-box
+        img.picture-box__img(src=`/img/${img}`, alt=`BCSniper ${i + 1}`, class=`picture-box__img--${i + 1}`)
+
+  //- TODO: empty section
+  section.section-map
+    //- #map(data-locations=`${JSON.stringify(tour.locations)}`)
+    //- .picture-box 
+    //-   img.picture-box__img(src='bcsniper1.jpg', alt='BCSniper Cover image')
+
+  section.section-reviews
+    .reviews
+      each review in reviews
+        +reviewCard(review)
+
+  section.section-cta
+    .cta
+      .cta__img.cta__img--logo
+        img(src='/img/logo-white.png', alt='BCSniper logo')
+      img.cta__img.cta__img--1(src='/img/bitcoin1.webp', alt='Bitcoin picture')
+      img.cta__img.cta__img--2(src='/img/bitcoin2.webp', alt='Bitcoin picture')
+      .cta__content
+        h2.heading-secondary What are you waiting for?
+        p.cta__text Over 20 bitcoins. Infinite opportunities. Make it yours today!
+        
+        if user
+          button.btn.btn--green.span-all-rows(href='/sniper/unreg') Shoot now!
+        else
+          a.btn.btn--green.span-all-rows(href='/login') Give a shot!

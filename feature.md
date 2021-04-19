@@ -11,3 +11,4 @@
 
 ## TODO: complement
 - Make password more complicated
+- Upload images 
