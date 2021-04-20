@@ -8,12 +8,14 @@ const AppError = require('../utils/appError');
 exports.getOverview = async (req, res, next) => {
   try {
     const reviews = await Review.find();
-    const images = ['bcscover1.jpg', 'bcscover2.jpg'];
+    const images1 = ['bcscover1.jpg', 'bcscover2.jpg'];
+    const images2 = ['howto1.png', 'howto2.png', 'howto3.png'];
 
     res.status(200).render('home', {
       title: 'BCSniper Home',
       reviews,
-      images
+      images1,
+      images2
     });
   } catch (err) {
     next(err);

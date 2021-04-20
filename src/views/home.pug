@@ -39,28 +39,12 @@ block content
 
         .overview-box__group
           h2.heading-secondary.ma-bt-lg Google Playstore 
-            .overview-box__detail
-              //- span.overview-box__text= guide.name
-              p
-                | We did a great achievement during this year. <br> 
-                | I hope you feel the same way as we did. <br> 
-                | It would be shame for us if we didn't fulfil your needs. <br> 
-                | hoho <br>
-                | haha <br>
-                | kdjk <br>
-                | kdjk <br>
-                | kdjk <br>
-                | kdjk <br>
-                | kdjk <br>
-                | kdjk <br>
-                | kdjk <br>
-                | kdjk <br>
-                | kdjk <br>
-                | kdjk <br>
-                | kdjk <br>
-                | kdjk <br>
-                | kdjk <br>
-
+          p.overview-box__detail
+            | We did a great achievement during this year. 
+            | I hope you feel the same way as we did.  
+            | It would be shame for us if we didn't fulfil your needs.  
+            | hoho 
+            | haha 
 
 
     .description-box
@@ -68,32 +52,31 @@ block content
       p.description__text blah blah blah
 
   section.section-pictures
-    each img, i in images
+    each img, i in images1
       .picture-box
-        img.picture-box__img(src=`/img/${img}`, alt=`BCSniper ${i + 1}`, class=`picture-box__img--${i + 1}`)
+        img.picture-box__img(src=`/img/${img}`, alt=`BCSniper ${i + 1}`, class=`picture-box__img--1-${i + 1}`)
 
-  //- TODO: empty section
-  section.section-map
-    //- #map(data-locations=`${JSON.stringify(tour.locations)}`)
-    //- .picture-box 
-    //-   img.picture-box__img(src='bcsniper1.jpg', alt='BCSniper Cover image')
+  section.section-pictures
+    each img, i in images2
+      .picture-box
+        img.picture-box__img(src=`/img/${img}`, alt=`BCSniper ${i + 1}`, class=`picture-box__img--2-${i + 1}`)
 
   section.section-reviews
     .reviews
       each review in reviews
         +reviewCard(review)
 
-  section.section-cta
-    .cta
+  section.section-cta-banner
+    .cta-banner
       .cta__img.cta__img--logo
         img(src='/img/logo-white.png', alt='BCSniper logo')
       img.cta__img.cta__img--1(src='/img/bitcoin1.webp', alt='Bitcoin picture')
       img.cta__img.cta__img--2(src='/img/bitcoin2.webp', alt='Bitcoin picture')
       .cta__content
-        h2.heading-secondary What are you waiting for?
+        h2.heading-secondary Be rich! Be yours!
         p.cta__text Over 20 bitcoins. Infinite opportunities. Make it yours today!
         
         if user
-          button.btn.btn--green.span-all-rows(href='/sniper/unreg') Shoot now!
+          button.btn.btn--green.span-all-rows(onclick="location.href='/sniper/unreg'") Shoot now!
         else
-          a.btn.btn--green.span-all-rows(href='/login') Give a shot!
+          a.btn.btn--green.span-all-rows(onclick="location.href='/login'") Give a shot!

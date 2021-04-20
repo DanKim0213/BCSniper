@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Parsers
 app.use(express.json());
-app.use(express.urlencoded({ extends: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/', viewRouter);
