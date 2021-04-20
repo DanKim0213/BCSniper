@@ -13,7 +13,6 @@ block content
       nav.user-view__menu
         ul.side-nav
           +navItem('#', 'Settings', 'settings', true)
-          +navItem('#', 'My bookings', 'briefcase')
           +navItem('#', 'My reviews', 'star')
           +navItem('#', 'Billing', 'credit-card')
 
@@ -21,10 +20,9 @@ block content
           .admin-nav
             h5.admin-nav__heading Admin
             ul.side-nav
-              +navItem('#', 'Manage tours', 'map')
+              +navItem('#', 'Manage snipers', 'briefcase')
               +navItem('#', 'Manage users', 'users')
               +navItem('#', 'Manage reviews', 'star')
-              +navItem('#', 'Manage bookings', 'briefcase')
 
       .user-view__content
         .user-view__form-container
@@ -43,7 +41,9 @@ block content
               input#email.form__input(type='email', value=`${user.email}`, required, name='email')
             .form__group.form__photo-upload
               img.form__user-photo(src=`/img/users/${user.photo}`, alt='User photo')
-              a.btn-text(href='') Choose new photo
+              input.form__upload(type='file', accept='image/*', id='photo', name='photo')
+              label(for='photo') Choose new photo
+
             .form__group.right
               button.btn.btn--small.btn--green Save settings
               
