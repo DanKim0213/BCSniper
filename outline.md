@@ -46,11 +46,14 @@
 - ~~Register Item from '/sniper/unreg'~~
 - ~~Sell Items when Sniper meets conditions~~
 - ~~Log the history of sellItem and buyItem on Sniper Controller~~
-- View Signup, Sniper's state, and Home
-- Sniper is used as an Announcer 
+- ~~View Signup, Sniper's state, and Home~~
+- ~~Sniper is used as an Announcer~~ 
+- Add an alert that tells the user to create bitcoins 
+- Upload images 
 - Translate into Korean
 
 ## TODO: complement 
+- make password more complicated
 - order how many bitcoins you want, not only one bitcoin
 - change duration, max, min after creating Item
 - set Interval to update All Items e.g. update Item every second
