@@ -36,7 +36,6 @@
 - ~~Create an Item~~
 - ~~Register an Item~~
 - ~~Unregister an Item~~
-- Write e2e test (first step)
 - ~~Handle errors globally~~
 - ~~Authenticate and Authorize~~ 
 - ~~Model data~~ 
@@ -48,12 +47,14 @@
 - ~~Log the history of sellItem and buyItem on Sniper Controller~~
 - ~~View Signup, Sniper's state, and Home~~
 - ~~Sniper is used as an Announcer~~ 
-- Add an alert that tells the user to create bitcoins 
-- Upload images 
+- ~~Add an alert that tells the user to create bitcoins~~ 
+- ~~Upload images~~ 
 - Translate into Korean
 
 ## TODO: complement 
+- Write e2e test (first step)
 - make password more complicated
+- send password reset token, using email
 - order how many bitcoins you want, not only one bitcoin
 - change duration, max, min after creating Item
 - set Interval to update All Items e.g. update Item every second
