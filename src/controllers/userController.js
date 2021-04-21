@@ -13,6 +13,8 @@ const factory = require('./handlerFactory');
 //     cb(null, `user-${req.user.id}-${Date.now()}.${ext}`);
 //   }
 // });
+
+// memory -> disk because of resizing
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
@@ -40,7 +42,7 @@ exports.resizeUserPhoto = async (req, res, next) => {
       .resize(500, 500)
       .toFormat('jpeg')
       .jpeg({ quality: 90 })
-      .toFile(`public/img/users/${req.file.filename}`);
+      .toFile(`src/public/img/users/${req.file.filename}`);
 
     next();
   } catch (err) {

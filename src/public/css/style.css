@@ -886,6 +886,9 @@ body {
     justify-self: center;
   }
 }
+.footer__letter {
+  font-size: 3.5rem;
+}
 
 .nav {
   display: -webkit-box;
