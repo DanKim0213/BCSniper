@@ -5,6 +5,7 @@ const path = require('path');
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
+const compression = require('compression');
 
 const viewRouter = require('./routes/viewRoutes');
 const sniperRouter = require('./routes/sniperRoutes');
@@ -14,6 +15,8 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
+
+app.enable('trust proxy');
 
 app.set('view engine', 'pug');
 app.set('views', path.join(`${__dirname}`, 'views'));
@@ -46,6 +49,8 @@ app.use(mongoSanitize());
 
 // Data sanitization against XSS
 app.use(xss());
+
+app.use(compression());
 
 app.use('/', viewRouter);
 app.use('/api/v1/sniper', sniperRouter);

@@ -12,8 +12,7 @@ export const watchItem = async ({id, symbol}) => {
     console.log(`${symbol} updated successfully`);
     return res.data.data;
   } catch (err) {
-    // showAlert('error', 'Please wait a little bit longer!!!');
-    console.log('Please wait a little bit longer...');
+    showAlert('error', 'Please wait a little bit longer');
   }
 }
 

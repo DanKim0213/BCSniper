@@ -10,8 +10,9 @@
     "test": "mocha ",
     "test-with-coverage": "nyc --reporter=text mocha ",
     "unit-test": "mocha ./test/units/*.js",
-    "start": "nodemon src/server.js",
-    "start:prod": "NODE_ENV=production nodemon src/server.js",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "prod": "NODE_ENV=production nodemon src/server.js",
     "watch:js": "parcel watch ./src/public/js/index.js --out-dir ./src/public/js --public-url /js --out-file bundle.js",
     "build:js": "parcel build ./src/public/js/index.js --out-dir ./src/public/js --public-url /js --out-file bundle.js"
   },
@@ -50,6 +51,7 @@
     "@babel/polyfill": "^7.12.1",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -68,6 +70,6 @@
     "xss-clean": "^0.1.1"
   },
   "engines": {
-    "node": ">= 10.0.0"
+    "node": "^15"
   }
 }

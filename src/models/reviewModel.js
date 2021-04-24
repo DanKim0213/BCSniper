@@ -46,7 +46,6 @@ reviewSchema.virtual('calcAverageRatings').get(async function () {
     }
   ]);
 
-  console.log(stats);
   if (stats === 0) return 4.5;
   return stats;
 });
