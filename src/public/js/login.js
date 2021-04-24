@@ -13,7 +13,7 @@ export const login = async (email, password) => {
     });
 
     if (res.data.status === 'success') {
-      showAlert('success', 'Logged in successfully!');
+      showAlert('success', '로그인하였습니다!');
       window.setTimeout(() => {
         location.assign('/sniper');
       }, 1500);
@@ -31,6 +31,6 @@ export const logout = async () => {
     });
     if ((res.data.status = 'success')) location.assign('/');
   } catch (err) {
-    showAlert('error', 'Error logging out! Try again.');
+    showAlert('error', '에러! 로그아웃했습니다! 다시 로그인해주세요.');
   }
 };

@@ -21,35 +21,31 @@ block content
         .heading-box__detail
           svg.heading-box__icon
             use(xlink:href='/img/icons.svg#icon-clock')
-          span.heading-box__text Grab the opportunity 
+          span.heading-box__text 기회를 놓치지 마세요 
         .heading-box__detail
           svg.heading-box__icon
             use(xlink:href='/img/icons.svg#icon-map-pin')
-          span.heading-box__text Get the maximum profit 
+          span.heading-box__text 정점일때 파세요  
 
   section.section-description
     .overview-box
       div
         .overview-box__group
-          h2.heading-secondary.ma-bt-lg Quick facts
+          h2.heading-secondary.ma-bt-lg Google Play
           +overviewBox('Launch', 'April 2021', 'calendar')
           +overviewBox('Difficulty', 'Easy', 'trending-up')
           +overviewBox('Participants', 'Over a million people', 'user')
           +overviewBox('Rating', '4.9 / 5', 'star')
 
-        .overview-box__group
-          h2.heading-secondary.ma-bt-lg Google Playstore 
-          p.overview-box__detail
-            | We did a great achievement during this year. 
-            | I hope you feel the same way as we did.  
-            | It would be shame for us if we didn't fulfil your needs.  
-            | hoho 
-            | haha 
-
-
     .description-box
       h2.heading-secondary.ma-bt-lg About Bitcoin Sniper
-      p.description__text blah blah blah
+      p.description__text 
+        | 사수 엎드려쏴! 비트코인 스나이퍼! 
+        | <br><br>
+        | 비트코인 스나이퍼는 비트코인 경매를 자동으로 도와주는 어플리케이션입니다.  
+        | 비트코인은 외줄타기와 같습니다. 시세가 급등과 급락을 오가기 때문에, 한 발 헛 딪으면 바로 나락으로 떨어집니다. 비트코인 스나이퍼를 개발하게 된 배경은 여기에 있습니다.  
+        | 비트코인 스나이퍼는 거래자에게 최소한의 안전장치로서 역할하도록 만들었습니다. 
+
 
   section.section-pictures
     each img, i in images1
@@ -73,8 +69,8 @@ block content
       img.cta__img.cta__img--1(src='/img/bitcoin1.webp', alt='Bitcoin picture')
       img.cta__img.cta__img--2(src='/img/bitcoin2.webp', alt='Bitcoin picture')
       .cta__content
-        h2.heading-secondary Be rich! Grab yours!
-        p.cta__text Over 20 bitcoins. Infinite opportunities. Make it yours today!
+        h2.heading-secondary 사수 엎드려쏴! 비트코인 스나이퍼!
+        p.cta__text 20가지가 넘는 비트코인. 무한한 기회. 당신 걸로 만드세요!
         
         if user
           button.btn.btn--green.span-all-rows(onclick="location.href='/sniper/unreg'") Shoot now!
