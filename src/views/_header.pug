@@ -1,8 +1,8 @@
 header.header
   nav.nav.nav--tours
-    a.nav__el(href='/') Home
-    a.nav__el(href='/sniper') My sniper
-    a.nav__el(href='/sniper/unreg') Bitcoins
+    a#home.nav__el(href='/') Home
+    a#sniper.nav__el(href='/sniper') My sniper
+    a#bitcoins.nav__el(href='/sniper/unreg') Bitcoins
     if user 
       a#viewSniper.nav__el View Sniper
       a#viewLog.nav__el View Logs
@@ -15,5 +15,5 @@ header.header
         img.nav__user-img(src=`/img/users/${user.photo}` alt='user photo')
         span= user.name.split(' ')[0]
     else
-      a.nav__el(href='/login') Log in
+      a#login.nav__el(href='/login') Log in
       a.nav__el.nav__el--cta(href='/signup') Sign up
