@@ -1,7 +1,7 @@
 /* eslint-disable */
 const app = require('./appRunner');
 
-describe.skip('End to End Testing1', function () {
+describe.skip('Basic tests before e2e', function () {
   this.timeout(5000);
   
   beforeEach('Set up', async () => {
@@ -17,11 +17,11 @@ describe.skip('End to End Testing1', function () {
   });
 
   it('click "give a shot" button', async () => {
-    await app.ClickGiveAShot();
+    await app.clickGiveAShot();
   });
 });
 
-describe('End to End testing2', function () {
+describe('End to End testing', function () {
   this.timeout(5000);
 
   beforeEach('Set up', async () => {
@@ -33,22 +33,20 @@ describe('End to End testing2', function () {
     await app.isClosed();
   });
 
-  it('Sniper is logged in', async function () {
+  it.skip('Sniper is logged in', async () => {
     await app.sniperIsLoggedIn();
   });
 
-  it('click "shoot now" button', async function () {
+  it.skip('click "shoot now" button', async () => {
     await app.sniperIsLoggedIn();
     await app.clickShootNow();
   });
 
-  it.skip('Sniper buys an item and sells the item immediately', () => {
-    /*
-    sniperIsLoggedIn(); // check
-    sniperBuysAnItem(); // action
-    sniperSellsAnItem(); // action
-    sniperLostMoney(); // check
-    */
+  it('Sniper buys an item and sells the item immediately', async () => {
+    await app.sniperIsLoggedIn(); // check
+    await app.sniperBuysAnItem(); // action
+    // sniperSellsAnItem(); // action
+    // sniperLostMoney(); // check
   });
 
   it.skip('Sniper buys an item and sells the item when won', () => {
